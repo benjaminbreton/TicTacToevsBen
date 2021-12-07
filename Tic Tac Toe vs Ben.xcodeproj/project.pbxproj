@@ -23,6 +23,8 @@
 		03E46D10275F6169008C00FF /* InButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E46D0F275F6169008C00FF /* InButton.swift */; };
 		03E46D15275F617E008C00FF /* CaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E46D14275F617D008C00FF /* CaseView.swift */; };
 		03E46D1A275F618D008C00FF /* RowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E46D19275F618D008C00FF /* RowView.swift */; };
+		03E46D1F275F61C9008C00FF /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E46D1E275F61C9008C00FF /* Player.swift */; };
+		03E46D24275F61E4008C00FF /* AI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E46D23275F61E4008C00FF /* AI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,8 @@
 		03E46D0F275F6169008C00FF /* InButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InButton.swift; sourceTree = "<group>"; };
 		03E46D14275F617D008C00FF /* CaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaseView.swift; sourceTree = "<group>"; };
 		03E46D19275F618D008C00FF /* RowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowView.swift; sourceTree = "<group>"; };
+		03E46D1E275F61C9008C00FF /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		03E46D23275F61E4008C00FF /* AI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +158,8 @@
 			isa = PBXGroup;
 			children = (
 				03E46CF6275F4BCD008C00FF /* GridModel.swift */,
+				03E46D1E275F61C9008C00FF /* Player.swift */,
+				03E46D23275F61E4008C00FF /* AI.swift */,
 				03E46CFB275F4C73008C00FF /* UserDefault.swift */,
 			);
 			path = Model;
@@ -334,6 +340,8 @@
 				03E46CB0275F4B4E008C00FF /* AppDelegate.swift in Sources */,
 				03E46D15275F617E008C00FF /* CaseView.swift in Sources */,
 				03E46CF7275F4BCD008C00FF /* GridModel.swift in Sources */,
+				03E46D1F275F61C9008C00FF /* Player.swift in Sources */,
+				03E46D24275F61E4008C00FF /* AI.swift in Sources */,
 				03E46D10275F6169008C00FF /* InButton.swift in Sources */,
 				03E46D06275F6143008C00FF /* CommonProperties.swift in Sources */,
 				03E46D0B275F6159008C00FF /* RoundedRectangle+defaultCornerRadius.swift in Sources */,
