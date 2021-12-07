@@ -16,6 +16,8 @@ struct ContentView: View {
         CommonProperties.shared.getMin(of: 40)
     }
     private let rows: [String] = ["A", "B", "C"]
+    
+    @State private var rotationDegrees: [[Double]] = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     var isGridDisabled: Bool {
         !gridViewModel.canContinue || gridViewModel.victoriousPlayer != nil
     }
@@ -24,6 +26,7 @@ struct ContentView: View {
     }
     var body: some View {
         ZStack {
+            Color.appWhite
             VStack {
                 ZStack {
                     RoundedRectangle()
@@ -34,7 +37,7 @@ struct ContentView: View {
                 .frame(height: CommonProperties.shared.getHeight(of: 10))
                 VStack(spacing: CommonProperties.shared.getMin(of: 1)) {
                     ForEach(0..<gridViewModel.grid.count) { index in
-                        RowView(gridViewModel.grid[index], row: rows[index], isDisabled: isGridDisabled)
+                        RowView(gridViewModel.grid[index], row: rows[index], isDisabled: isGridDisabled, rotationDegrees: $rotationDegrees[index])
                     }
                 }
                 .frame(width: gridSize, height: gridSize)
@@ -51,6 +54,7 @@ struct ContentView: View {
                         Text("Continuer")
                             .inButton {
                                 gridViewModel.reset()
+                                rotationDegrees = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
                             }
                     }
                     RoundedRectangle()

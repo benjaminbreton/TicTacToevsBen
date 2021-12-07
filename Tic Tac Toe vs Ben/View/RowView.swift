@@ -11,15 +11,17 @@ struct RowView: View {
     private let rowDatas: [Player]
     private let row: String
     private let isDisabled: Bool
-    init(_ rowDatas: [Player], row: String, isDisabled: Bool) {
+    @Binding private var rotationDegrees: [Double]
+    init(_ rowDatas: [Player], row: String, isDisabled: Bool, rotationDegrees: Binding<[Double]>) {
         self.rowDatas = rowDatas
         self.row = row
         self.isDisabled = isDisabled
+        self._rotationDegrees = rotationDegrees
     }
     var body: some View {
         HStack(spacing: CommonProperties.shared.getMin(of: 1)) {
             ForEach(0..<rowDatas.count) { index in
-                CaseView(rowDatas[index], row: row, col: index + 1, isDisabled: isDisabled)
+                CaseView(rowDatas[index], row: row, col: index + 1, isDisabled: isDisabled, rotationDegrees: $rotationDegrees[index])
             }
         }
     }

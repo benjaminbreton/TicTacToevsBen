@@ -36,6 +36,16 @@ enum Player: CaseIterable {
             return .player
         }
     }
+    var colorName: String {
+        switch self {
+        case .me:
+            return "AppRed"
+        case .player:
+            return "AppGreen"
+        case .none:
+            return "AppBlack"
+        }
+    }
     static func getFromInt(_ int: Int) -> Player {
         let result = allCases.compactMap({ $0.int == int ? $0 : nil })
         if result.count == 1 {
