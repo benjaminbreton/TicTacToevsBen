@@ -12,6 +12,7 @@ class GridViewModel: ObservableObject {
     var canContinue: Bool { model.canContinue }
     var currentPlayer: Player { model.currentPlayer }
     var victoriousPlayer: Player? { model.victoriousPlayer }
+    var hasToWait: Bool { model.hasToWait }
     init() {
         self.model = GridModel()
     }
@@ -22,6 +23,12 @@ class GridViewModel: ObservableObject {
     
     func reset() {
         model.reset()
+    }
+    func forceWaiting() {
+        model.forceWaiting()
+    }
+    func nextPlayer() {
+        model.nextPlayer()
     }
     
 }

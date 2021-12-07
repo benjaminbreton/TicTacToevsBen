@@ -77,7 +77,7 @@ struct AI {
         } else if hasBegun {
             self.decision = getCaseWhenIBegun()
         } else {
-            
+            self.decision = getCaseWhenIDidntBegin()
         }
     }
     private func searchForVictoriousCase(for player: Player) -> GridCase? {

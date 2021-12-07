@@ -9,12 +9,14 @@ import SwiftUI
 
 struct CaseView: View {
     @EnvironmentObject private var gridViewModel: GridViewModel
+    @EnvironmentObject private var aiViewModel: AIViewModel
     @Binding private var rotation3DDegrees: Double
     private let player: Player
     private let row: String
     private let col: Int
     private let isDisabled: Bool
     @State private var timer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
+    @State private var buttonHasBeenHitten: Bool = false
     init(_ player: Player, row: String, col: Int, isDisabled: Bool, rotationDegrees: Binding<Double>) {
         self.player = player
         self.row = row
@@ -32,9 +34,8 @@ struct CaseView: View {
                 .stroke()
                 .foregroundColor(Color(player.colorName))
         }
-        .inButton(isDisabled: player.int != 0 || isDisabled) {
-            rotation3DDegrees = 90
-            timer = timer.upstream.autoconnect()
+        .inButton(isDisabled: player.int != 0 || isDisabled || gridViewModel.hasToWait || gridViewModel.currentPlayer == .me) {
+            hit()
         }
         .rotation3DEffect(
             .degrees(rotation3DDegrees),
@@ -44,9 +45,27 @@ struct CaseView: View {
             if rotation3DDegrees == 90 {
                 gridViewModel.playerDidChoose(row: row, col: col)
                 rotation3DDegrees = 180
+            } else if rotation3DDegrees == 180 {
+                if buttonHasBeenHitten {
+                    buttonHasBeenHitten = false
+                    gridViewModel.nextPlayer()
+                    aiViewModel.endDecision()
+                    if gridViewModel.currentPlayer == .me && !aiViewModel.decisionInProgress {
+                        aiViewModel.play(grid: gridViewModel.grid)
+                    }
+                }
+            } else {
+                if gridViewModel.currentPlayer == .me, let decision = aiViewModel.decision, decision.row == row, decision.col == col {
+                    aiViewModel.reset()
+                    hit()
+                }
             }
-            timer.upstream.connect().cancel()
         })
+    }
+    private func hit() {
+        buttonHasBeenHitten = true
+        gridViewModel.forceWaiting()
+        rotation3DDegrees = 90
     }
 }
 

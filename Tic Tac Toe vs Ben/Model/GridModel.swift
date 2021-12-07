@@ -43,6 +43,8 @@ struct GridModel {
         rowsInt.map({ $0.map({ $0 == 0 ? 1 : 0 }).reduce(0, +) }).reduce(0, +) > 0
     }
     
+    private(set) var hasToWait: Bool = false
+    
     init() {
         if let player = getVictoriousPlayer() {
             self.victoriousPlayer = player
@@ -64,6 +66,7 @@ struct GridModel {
         beginner = Player.getFromInt(beginner).switchPlayer.int
         currentPlayerInt = beginner
         victoriousPlayer = nil
+        hasToWait = false
     }
     
     mutating func playerDidChoose(row: String, col: Int) {
@@ -94,13 +97,18 @@ struct GridModel {
                 caseC3 = currentPlayerInt
             }
         }
+        hasToWait = true
+    }
+    mutating func nextPlayer() {
         if let victoriousPlayer = getVictoriousPlayer() {
             self.victoriousPlayer = victoriousPlayer
+            self.currentPlayerInt = 0
             return
         }
         if canContinue {
             currentPlayerInt = currentPlayer.switchPlayer.int
         }
+        hasToWait = false
     }
     private func getVictoriousPlayer() -> Player? {
         let players: [Player] = [.me, .player]
@@ -113,6 +121,9 @@ struct GridModel {
             }
         }
         return nil
+    }
+    mutating func forceWaiting() {
+        self.hasToWait = true
     }
     
 
