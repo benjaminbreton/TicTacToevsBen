@@ -28,6 +28,26 @@ enum Player: CaseIterable {
             return ""
         }
     }
+    var rotation90: Double {
+        switch self {
+        case .me:
+            return -90
+        case .player:
+            return 90
+        case .none:
+            return 0
+        }
+    }
+    var rotation180: Double {
+        switch self {
+        case .me:
+            return -180
+        case .player:
+            return 180
+        case .none:
+            return 0
+        }
+    }
     var symbol: String {
         switch self {
         case .me:

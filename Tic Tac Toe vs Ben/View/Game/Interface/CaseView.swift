@@ -51,7 +51,7 @@ struct CaseView: View {
         caseHasBeenChoosen = true
         aiViewModel.reset()
         gridViewModel.forceWaiting()
-        rotation3DDegrees = 90
+        rotation3DDegrees = gridViewModel.currentPlayer.rotation90
         waitForAction(.sendChoice)
     }
     enum CaseAction {
@@ -62,7 +62,7 @@ struct CaseView: View {
             switch action {
             case .sendChoice:
                 gridViewModel.playerDidChoose(row: row, col: col)
-                rotation3DDegrees = 180
+                rotation3DDegrees = gridViewModel.currentPlayer.rotation180
                 waitForAction(.endRound)
             case .endRound:
                 caseHasBeenChoosen = false
