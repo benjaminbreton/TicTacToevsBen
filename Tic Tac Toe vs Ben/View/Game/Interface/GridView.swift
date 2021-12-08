@@ -26,8 +26,8 @@ struct GridView: View {
     var body: some View {
         VStack {
             Text("Tic Tac Toe vs Ben")
-                .inRoundedRectangle()
                 .font(.appTitle)
+                .inRoundedRectangle()
                 .frame(height: CommonProperties.shared.getHeight(of: 10))
                 .padding()
             VStack(spacing: CommonProperties.shared.getMin(of: 1)) {

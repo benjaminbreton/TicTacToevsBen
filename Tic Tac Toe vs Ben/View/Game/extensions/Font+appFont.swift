@@ -10,8 +10,8 @@ import SwiftUI
 extension Font {
     static var appRegular: Font { getFont() }
     static var appTitle: Font { getFont(size: 2) }
-    static var bigTitle: Font { getFont(size: 4) }
+    static var appBigTitle: Font { getFont(size: 4) }
     static private func getFont(name: String = "Marker Felt", size: CGFloat = 1) -> Font {
-        Font.custom(name, size: CommonProperties.shared.getMin(of: 5))
+        Font.custom(name, size: CommonProperties.shared.getMin(of: 5) * size)
     }
 }
