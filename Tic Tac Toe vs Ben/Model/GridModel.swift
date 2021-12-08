@@ -30,7 +30,8 @@ struct GridModel {
     @UserDefault("currentPlayer", defaultValue: 2)
     private var currentPlayerInt: Int
     
-    var victoriousPlayer: Player? = nil
+    private(set) var victoriousPlayer: Player? = nil
+    private(set) var victoriousLine: GridLine? = nil
     
     var currentPlayer: Player { Player.getFromInt(currentPlayerInt) }
     var grid: [[Player]] { rowsInt.map({ $0.map( { Player.getFromInt($0)} ) }) }
@@ -66,6 +67,7 @@ struct GridModel {
         beginner = Player.getFromInt(beginner).switchPlayer.int
         currentPlayerInt = beginner
         victoriousPlayer = nil
+        victoriousLine = nil
         hasToWait = false
     }
     
@@ -112,16 +114,25 @@ struct GridModel {
         }
         hasToWait = false
     }
-    private func getVictoriousPlayer() -> Player? {
+    mutating private func getVictoriousPlayer() -> Player? {
         let players: [Player] = [.me, .player]
-        let arrays: [[[Int]]] = [rowsInt, colsInt, diagInt]
         for player in players {
-            for index in 0..<arrays.count {
-                if arrays[index].map({ $0.map({ $0 == player.int ? 1 : 0 }).reduce(0, +) == 3 ? 1 : 0 }).reduce(0, +) > 0 {
+            for line in GridLine.allCases {
+                if line.gridCases.map({ grid[$0.firstIndex][$0.secondIndex] == player ? 1 : 0 }).reduce(0, +) == 3 {
+                    self.victoriousLine = line
                     return player
                 }
             }
         }
+        
+//        let arrays: [[[Int]]] = [rowsInt, colsInt, diagInt]
+//        for player in players {
+//            for index in 0..<arrays.count {
+//                if arrays[index].map({ $0.map({ $0 == player.int ? 1 : 0 }).reduce(0, +) == 3 ? 1 : 0 }).reduce(0, +) > 0 {
+//                    return player
+//                }
+//            }
+//        }
         return nil
     }
     mutating func forceWaiting() {

@@ -13,7 +13,23 @@ class GridViewModel: ObservableObject {
     var canContinue: Bool { model.canContinue }
     var currentPlayer: Player { model.currentPlayer }
     var victoriousPlayer: Player? { model.victoriousPlayer }
+    var victoriousLine: GridLine? { model.victoriousLine }
     var hasToWait: Bool { model.hasToWait }
+    
+    var gridMessage: String {
+        if let player = victoriousPlayer {
+            return player.winMessage
+        } else if canContinue {
+            return currentPlayer.text
+        }
+        return "match nul"
+    }
+    var gridColorName: String {
+        if let player = victoriousPlayer {
+            return player.colorName
+        }
+        return currentPlayer.colorName
+    }
     init() {
         self.model = GridModel()
         aiHasToPlay = false

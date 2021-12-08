@@ -10,6 +10,10 @@
 		0345CAF52760B5F90045944F /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0345CAF42760B5F90045944F /* GridView.swift */; };
 		0345CAFA2760B84A0045944F /* InRoundedRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0345CAF92760B84A0045944F /* InRoundedRectangle.swift */; };
 		0345CAFF2760B8710045944F /* Font+appFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0345CAFE2760B8710045944F /* Font+appFont.swift */; };
+		0345CB0E2760CAE00045944F /* GridCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0345CB0D2760CAE00045944F /* GridCase.swift */; };
+		0345CB132760CB090045944F /* GridLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0345CB122760CB090045944F /* GridLine.swift */; };
+		0345CB182760FCDF0045944F /* VictoriousLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0345CB172760FCDE0045944F /* VictoriousLineView.swift */; };
+		0345CB1D2760FD010045944F /* Float+cgFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0345CB1C2760FD010045944F /* Float+cgFloat.swift */; };
 		03E46CB0275F4B4E008C00FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E46CAF275F4B4E008C00FF /* AppDelegate.swift */; };
 		03E46CB2275F4B4E008C00FF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E46CB1275F4B4E008C00FF /* SceneDelegate.swift */; };
 		03E46CB4275F4B4E008C00FF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E46CB3275F4B4E008C00FF /* ContentView.swift */; };
@@ -55,6 +59,10 @@
 		0345CAF42760B5F90045944F /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		0345CAF92760B84A0045944F /* InRoundedRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InRoundedRectangle.swift; sourceTree = "<group>"; };
 		0345CAFE2760B8710045944F /* Font+appFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+appFont.swift"; sourceTree = "<group>"; };
+		0345CB0D2760CAE00045944F /* GridCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCase.swift; sourceTree = "<group>"; };
+		0345CB122760CB090045944F /* GridLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLine.swift; sourceTree = "<group>"; };
+		0345CB172760FCDE0045944F /* VictoriousLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VictoriousLineView.swift; sourceTree = "<group>"; };
+		0345CB1C2760FD010045944F /* Float+cgFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+cgFloat.swift"; sourceTree = "<group>"; };
 		03E46CAC275F4B4E008C00FF /* Tic Tac Toe vs Ben.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tic Tac Toe vs Ben.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		03E46CAF275F4B4E008C00FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		03E46CB1275F4B4E008C00FF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -123,6 +131,7 @@
 		0345CB042760B8910045944F /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				0345CB1C2760FD010045944F /* Float+cgFloat.swift */,
 				03E46D31275F93E0008C00FF /* Color+appColor.swift */,
 				0345CAFE2760B8710045944F /* Font+appFont.swift */,
 			);
@@ -134,6 +143,7 @@
 			children = (
 				03E46CB3275F4B4E008C00FF /* ContentView.swift */,
 				0345CAF42760B5F90045944F /* GridView.swift */,
+				0345CB172760FCDE0045944F /* VictoriousLineView.swift */,
 				03E46D19275F618D008C00FF /* RowView.swift */,
 				03E46D14275F617D008C00FF /* CaseView.swift */,
 				03E46D36275F9CB7008C00FF /* SymbolView.swift */,
@@ -217,6 +227,8 @@
 				03E46CF6275F4BCD008C00FF /* GridModel.swift */,
 				03E46D1E275F61C9008C00FF /* Player.swift */,
 				03E46D23275F61E4008C00FF /* AI.swift */,
+				0345CB0D2760CAE00045944F /* GridCase.swift */,
+				0345CB122760CB090045944F /* GridLine.swift */,
 				03E46CFB275F4C73008C00FF /* UserDefault.swift */,
 			);
 			path = Model;
@@ -392,8 +404,10 @@
 				03E46D01275F56EA008C00FF /* GridViewModel.swift in Sources */,
 				03E46CB0275F4B4E008C00FF /* AppDelegate.swift in Sources */,
 				03E46D3C275F9F9C008C00FF /* AIViewModel.swift in Sources */,
+				0345CB132760CB090045944F /* GridLine.swift in Sources */,
 				03E46D15275F617E008C00FF /* CaseView.swift in Sources */,
 				03E46D32275F93E0008C00FF /* Color+appColor.swift in Sources */,
+				0345CB182760FCDF0045944F /* VictoriousLineView.swift in Sources */,
 				03E46D41275FB973008C00FF /* MessageView.swift in Sources */,
 				03E46CF7275F4BCD008C00FF /* GridModel.swift in Sources */,
 				03E46D1F275F61C9008C00FF /* Player.swift in Sources */,
@@ -401,6 +415,8 @@
 				03E46D24275F61E4008C00FF /* AI.swift in Sources */,
 				03E46D10275F6169008C00FF /* InButton.swift in Sources */,
 				03E46D06275F6143008C00FF /* CommonProperties.swift in Sources */,
+				0345CB0E2760CAE00045944F /* GridCase.swift in Sources */,
+				0345CB1D2760FD010045944F /* Float+cgFloat.swift in Sources */,
 				03E46D0B275F6159008C00FF /* RoundedRectangle+defaultCornerRadius.swift in Sources */,
 				03E46CFC275F4C73008C00FF /* UserDefault.swift in Sources */,
 				03E46D1A275F618D008C00FF /* RowView.swift in Sources */,

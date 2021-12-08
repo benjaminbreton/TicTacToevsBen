@@ -23,9 +23,17 @@ enum Player: CaseIterable {
         case .me:
             return "à moi"
         case .player:
-            return "à vous"
+            return "à toi"
         case .none:
             return ""
+        }
+    }
+    var winMessage: String {
+        switch self {
+        case .me:
+            return "j'ai gagné, désolé..."
+        default:
+            return "vous avez gagné ! Bravo !"
         }
     }
     var rotation90: Double {

@@ -25,9 +25,9 @@ struct ContentView: View {
         ZStack {
             Color.appWhite
             GridView(rotationDegrees: $rotationDegrees, caseHasBeenChoosen: $caseHasBeenChoosen, reset: reset)
-            if isGridDisabled {
-                MessageView(reset: reset)
-            }
+//            if isGridDisabled {
+//                MessageView(reset: reset)
+//            }
         }
         .font(.appRegular)
         .environmentObject(gridViewModel)

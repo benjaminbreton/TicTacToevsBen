@@ -30,17 +30,20 @@ struct GridView: View {
                 .inRoundedRectangle()
                 .frame(height: CommonProperties.shared.getHeight(of: 10))
                 .padding()
-            VStack(spacing: CommonProperties.shared.getMin(of: 1)) {
-                ForEach(0..<gridViewModel.grid.count) { index in
-                    RowView(gridViewModel.grid[index], row: rows[index], isDisabled: isGridDisabled, rotationDegrees: $rotationDegrees[index], caseHasBeenChoosen: $caseHasBeenChoosen)
+            ZStack {
+                VStack(spacing: CommonProperties.shared.getMin(of: 1)) {
+                    ForEach(0..<gridViewModel.grid.count) { index in
+                        RowView(gridViewModel.grid[index], row: rows[index], isDisabled: isGridDisabled, rotationDegrees: $rotationDegrees[index], caseHasBeenChoosen: $caseHasBeenChoosen)
+                    }
                 }
+                VictoriousLineView()
             }
             .frame(width: gridSize, height: gridSize)
-            Text(gridViewModel.currentPlayer.text)
-                .inRoundedRectangle(color: Color(gridViewModel.currentPlayer.colorName))
+            Text(gridViewModel.gridMessage)
+                .inRoundedRectangle(color: Color(gridViewModel.gridColorName))
                 .frame(height: CommonProperties.shared.getHeight(of: 5))
                 .padding()
-            Text("Reset")
+            Text(isGridDisabled ? "Continuer" : "Reset")
                 .inRoundedRectangle()
                 .frame(height: CommonProperties.shared.getHeight(of: 10))
                 .padding()
@@ -48,5 +51,3 @@ struct GridView: View {
         }
     }
 }
-
-
