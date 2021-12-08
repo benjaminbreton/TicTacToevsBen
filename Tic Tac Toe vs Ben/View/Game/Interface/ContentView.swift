@@ -1,0 +1,67 @@
+//
+//  ContentView.swift
+//  Tic Tac Toe vs Ben
+//
+//  Created by Benjamin Breton on 07/12/2021.
+//
+
+import SwiftUI
+
+struct ContentView: View {
+    @ObservedObject private var gridViewModel: GridViewModel
+    @ObservedObject private var aiViewModel: AIViewModel
+    var isGridDisabled: Bool {
+        !gridViewModel.canContinue || gridViewModel.victoriousPlayer != nil
+    }
+    @State private var rotationDegrees: [[Double]] = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+    
+    init() {
+        self.gridViewModel = GridViewModel()
+        self.aiViewModel = AIViewModel()
+    }
+    
+    var body: some View {
+        ZStack {
+            Color.appWhite
+            GridView(rotationDegrees: $rotationDegrees, reset: reset)
+            if isGridDisabled {
+                MessageView(reset: reset)
+            }
+        }
+        .font(.appRegular)
+        .environmentObject(gridViewModel)
+        .environmentObject(aiViewModel)
+        .onAppear {
+            if gridViewModel.currentPlayer == .me && !aiViewModel.decisionInProgress {
+                aiViewModel.play(grid: gridViewModel.grid)
+            }
+        }
+    }
+    private func reset() {
+        gridViewModel.reset()
+        aiViewModel.reset()
+        aiViewModel.endDecision()
+        rotationDegrees = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            if gridViewModel.currentPlayer == .me {
+                aiViewModel.play(grid: gridViewModel.grid)
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

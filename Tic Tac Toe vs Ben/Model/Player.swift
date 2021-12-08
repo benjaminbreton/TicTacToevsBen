@@ -18,6 +18,16 @@ enum Player: CaseIterable {
             return 0
         }
     }
+    var text: String {
+        switch self {
+        case .me:
+            return "à moi"
+        case .player:
+            return "à vous"
+        case .none:
+            return ""
+        }
+    }
     var symbol: String {
         switch self {
         case .me:

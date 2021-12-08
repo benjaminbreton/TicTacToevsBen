@@ -50,8 +50,10 @@ struct CaseView: View {
                     buttonHasBeenHitten = false
                     gridViewModel.nextPlayer()
                     aiViewModel.endDecision()
-                    if gridViewModel.currentPlayer == .me && !aiViewModel.decisionInProgress {
-                        aiViewModel.play(grid: gridViewModel.grid)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        if gridViewModel.currentPlayer == .me && !aiViewModel.decisionInProgress {
+                            aiViewModel.play(grid: gridViewModel.grid)
+                        }
                     }
                 }
             } else {

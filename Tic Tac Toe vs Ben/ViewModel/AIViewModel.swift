@@ -14,7 +14,6 @@ class AIViewModel: ObservableObject {
         model = AI()
     }
     func play(grid: [[Player]]) {
-        print("ok")
         decisionInProgress = true
         model.decide(grid: grid)
     }

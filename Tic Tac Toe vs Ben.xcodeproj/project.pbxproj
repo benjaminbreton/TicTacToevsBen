@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0345CAF52760B5F90045944F /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0345CAF42760B5F90045944F /* GridView.swift */; };
+		0345CAFA2760B84A0045944F /* InRoundedRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0345CAF92760B84A0045944F /* InRoundedRectangle.swift */; };
+		0345CAFF2760B8710045944F /* Font+appFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0345CAFE2760B8710045944F /* Font+appFont.swift */; };
 		03E46CB0275F4B4E008C00FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E46CAF275F4B4E008C00FF /* AppDelegate.swift */; };
 		03E46CB2275F4B4E008C00FF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E46CB1275F4B4E008C00FF /* SceneDelegate.swift */; };
 		03E46CB4275F4B4E008C00FF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E46CB3275F4B4E008C00FF /* ContentView.swift */; };
@@ -25,9 +28,10 @@
 		03E46D1A275F618D008C00FF /* RowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E46D19275F618D008C00FF /* RowView.swift */; };
 		03E46D1F275F61C9008C00FF /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E46D1E275F61C9008C00FF /* Player.swift */; };
 		03E46D24275F61E4008C00FF /* AI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E46D23275F61E4008C00FF /* AI.swift */; };
-		03E46D32275F93E0008C00FF /* AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E46D31275F93E0008C00FF /* AppColor.swift */; };
+		03E46D32275F93E0008C00FF /* Color+appColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E46D31275F93E0008C00FF /* Color+appColor.swift */; };
 		03E46D37275F9CB7008C00FF /* SymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E46D36275F9CB7008C00FF /* SymbolView.swift */; };
 		03E46D3C275F9F9C008C00FF /* AIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E46D3B275F9F9C008C00FF /* AIViewModel.swift */; };
+		03E46D41275FB973008C00FF /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E46D40275FB973008C00FF /* MessageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +52,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0345CAF42760B5F90045944F /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
+		0345CAF92760B84A0045944F /* InRoundedRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InRoundedRectangle.swift; sourceTree = "<group>"; };
+		0345CAFE2760B8710045944F /* Font+appFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+appFont.swift"; sourceTree = "<group>"; };
 		03E46CAC275F4B4E008C00FF /* Tic Tac Toe vs Ben.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tic Tac Toe vs Ben.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		03E46CAF275F4B4E008C00FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		03E46CB1275F4B4E008C00FF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -72,9 +79,10 @@
 		03E46D19275F618D008C00FF /* RowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowView.swift; sourceTree = "<group>"; };
 		03E46D1E275F61C9008C00FF /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		03E46D23275F61E4008C00FF /* AI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AI.swift; sourceTree = "<group>"; };
-		03E46D31275F93E0008C00FF /* AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColor.swift; sourceTree = "<group>"; };
+		03E46D31275F93E0008C00FF /* Color+appColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+appColor.swift"; sourceTree = "<group>"; };
 		03E46D36275F9CB7008C00FF /* SymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolView.swift; sourceTree = "<group>"; };
 		03E46D3B275F9F9C008C00FF /* AIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIViewModel.swift; sourceTree = "<group>"; };
+		03E46D40275FB973008C00FF /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +110,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0345CB032760B8820045944F /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				0345CB092760B8BF0045944F /* Supporting files */,
+				0345CB082760B8A50045944F /* Interface */,
+				0345CB042760B8910045944F /* extensions */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
+		0345CB042760B8910045944F /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				03E46D31275F93E0008C00FF /* Color+appColor.swift */,
+				0345CAFE2760B8710045944F /* Font+appFont.swift */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
+		0345CB082760B8A50045944F /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				03E46CB3275F4B4E008C00FF /* ContentView.swift */,
+				0345CAF42760B5F90045944F /* GridView.swift */,
+				03E46D19275F618D008C00FF /* RowView.swift */,
+				03E46D14275F617D008C00FF /* CaseView.swift */,
+				03E46D36275F9CB7008C00FF /* SymbolView.swift */,
+				03E46D40275FB973008C00FF /* MessageView.swift */,
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
+		0345CB092760B8BF0045944F /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				03E46D05275F6143008C00FF /* CommonProperties.swift */,
+				03E46D0A275F6159008C00FF /* RoundedRectangle+defaultCornerRadius.swift */,
+				03E46D0F275F6169008C00FF /* InButton.swift */,
+				0345CAF92760B84A0045944F /* InRoundedRectangle.swift */,
+			);
+			path = "Supporting files";
+			sourceTree = "<group>";
+		};
 		03E46CA3275F4B4D008C00FF = {
 			isa = PBXGroup;
 			children = (
@@ -183,15 +234,8 @@
 		03E46CE4275F4B65008C00FF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0345CB032760B8820045944F /* Game */,
 				03E46CE6275F4B72008C00FF /* LaunchScreen */,
-				03E46CB3275F4B4E008C00FF /* ContentView.swift */,
-				03E46D19275F618D008C00FF /* RowView.swift */,
-				03E46D14275F617D008C00FF /* CaseView.swift */,
-				03E46D36275F9CB7008C00FF /* SymbolView.swift */,
-				03E46D31275F93E0008C00FF /* AppColor.swift */,
-				03E46D0F275F6169008C00FF /* InButton.swift */,
-				03E46D0A275F6159008C00FF /* RoundedRectangle+defaultCornerRadius.swift */,
-				03E46D05275F6143008C00FF /* CommonProperties.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -349,7 +393,8 @@
 				03E46CB0275F4B4E008C00FF /* AppDelegate.swift in Sources */,
 				03E46D3C275F9F9C008C00FF /* AIViewModel.swift in Sources */,
 				03E46D15275F617E008C00FF /* CaseView.swift in Sources */,
-				03E46D32275F93E0008C00FF /* AppColor.swift in Sources */,
+				03E46D32275F93E0008C00FF /* Color+appColor.swift in Sources */,
+				03E46D41275FB973008C00FF /* MessageView.swift in Sources */,
 				03E46CF7275F4BCD008C00FF /* GridModel.swift in Sources */,
 				03E46D1F275F61C9008C00FF /* Player.swift in Sources */,
 				03E46D37275F9CB7008C00FF /* SymbolView.swift in Sources */,
@@ -360,7 +405,10 @@
 				03E46CFC275F4C73008C00FF /* UserDefault.swift in Sources */,
 				03E46D1A275F618D008C00FF /* RowView.swift in Sources */,
 				03E46CB2275F4B4E008C00FF /* SceneDelegate.swift in Sources */,
+				0345CAFA2760B84A0045944F /* InRoundedRectangle.swift in Sources */,
+				0345CAF52760B5F90045944F /* GridView.swift in Sources */,
 				03E46CB4275F4B4E008C00FF /* ContentView.swift in Sources */,
+				0345CAFF2760B8710045944F /* Font+appFont.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
