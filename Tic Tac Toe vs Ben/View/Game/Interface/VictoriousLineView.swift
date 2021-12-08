@@ -61,7 +61,7 @@ fileprivate struct VictoriousLineShape: Shape {
             y = line.endMultipliers.y.cgFloat
         }
         return CGPoint(
-            x: x * rectPercent + CommonProperties.shared.getMin(of: 1) * add,
+            x: x * rectPercent + (line.addToXMultiplier ? CommonProperties.shared.getMin(of: 1) * add : 0),
             y: y * rectPercent + CommonProperties.shared.getMin(of: 1) * add
         )
     }

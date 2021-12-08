@@ -65,21 +65,37 @@ struct AI {
         }
         return playerDecisions
     }
+    
+    // MARK: - Decision
 
     mutating func decide(grid: [[Player]]) {
         self.grid = grid
+        // check if AI can win with 1 move and eventually use it
         if let victoriousCase = searchForVictoriousCase(for: .me) {
             self.decision = victoriousCase
+        // check if player can win with 1 move and eventually impeach it
         } else if let victoriousCase = searchForVictoriousCase(for: .player) {
             self.decision = victoriousCase
+        // check if AI can win with 2 moves and eventually plan it
         } else if let winningChoice = getWinningChoice() {
             self.decision = winningChoice
+        /*
+             If previous cases failed, a decision has to be made based on which player began, and moves already done
+             */
         } else if hasBegun {
-            self.decision = getCaseWhenIBegun()
+            self.decision = getCaseWhenAIBegun()
         } else {
             self.decision = getCaseWhenIDidntBegin()
         }
     }
+    
+    // MARK: - Win with 1 move
+    
+    /**
+     Check if a player can win with one move, and eventually returns the move to be done.
+     - parameter player: The player.
+     - returns: The move.
+     */
     private func searchForVictoriousCase(for player: Player) -> GridCase? {
         for index in 0..<3 {
             if let victoriousCase = searchForVictoriousCase(for: player, index1: [index, index, index]) {
@@ -108,9 +124,13 @@ struct AI {
         }
         return nil
     }
-    private func getCaseWhenIBegun() -> GridCase {
+    
+    // MARK: - AI begun
+    
+    private func getCaseWhenAIBegun() -> GridCase {
         var choices: [GridCase] = []
         if occupiedCases == 0 {
+            // first choice : a corner
             choices = [
                 .caseA1,
                 .caseA3,
@@ -143,14 +163,26 @@ struct AI {
             } else {
                 choices = [.caseB2]
             }
-        } else if occupiedCases == 2 {
-            if playerDecisions[0].isCorner && playerDecisions[1].isCorner {
-                choices = [
-                    .caseA2,
-                    .caseB1,
-                    .caseB3,
-                    .caseC2
-                ]
+        } else if occupiedCases == 3 {
+            if playerDecisions[0].isCorner {
+                if playerDecisions[1].isCorner {
+                    choices = [
+                        .caseA2,
+                        .caseB1,
+                        .caseB3,
+                        .caseC2
+                    ]
+                } else if playerDecisions[1].isMiddle {
+                    choices = freeCorners
+                } else {
+                    choices = freeCases
+                }
+            } else if playerDecisions[0].isMiddle {
+                if playerDecisions[1].isCorner {
+                    choices = freeCorners
+                } else {
+                    choices = freeCases
+                }
             } else {
                 choices = freeCases
             }
@@ -159,6 +191,8 @@ struct AI {
         }
         return choices[Int.random(in: 0..<choices.count)]
     }
+    
+    // MARK: - Win with 2 moves
     
     private func getWinningChoice() -> GridCase? {
         for gridCase in freeCases {

@@ -35,6 +35,9 @@ enum GridLine: CaseIterable {
         
         }
     }
+    var addToXMultiplier: Bool {
+        return self != .dLeftTopToRightBottom && self != .dLeftBottomToRightTop
+    }
     var startMultipliers: (x: Float, y: Float) {
         (x: xMultiplier(for: gridCols[0]), y: yMultiplier(for: gridRows[0]))
     }
