@@ -19,8 +19,6 @@ class AIViewModel: ObservableObject {
     }
     func reset() {
         model.reset()
-    }
-    func endDecision() {
         decisionInProgress = false
     }
 }

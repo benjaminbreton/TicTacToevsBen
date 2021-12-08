@@ -107,6 +107,8 @@ struct GridModel {
         }
         if canContinue {
             currentPlayerInt = currentPlayer.switchPlayer.int
+        } else {
+            currentPlayerInt = 0
         }
         hasToWait = false
     }
