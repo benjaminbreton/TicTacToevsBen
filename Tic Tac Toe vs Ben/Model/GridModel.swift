@@ -7,6 +7,20 @@
 
 import Foundation
 struct GridModel {
+    /*
+     The grid:
+     
+     Rows / Cols | 1 | 2 | 3 |
+     ____________|___|___|___|
+     A           |   |   |   |
+     ____________|___|___|___|
+     B           |   |   |   |
+     ____________|___|___|___|
+     C           |   |   |   |
+     ____________|___|___|___|
+     
+     */
+    
     @UserDefault("boxA1", defaultValue: 0)
     private var boxA1: Int
     @UserDefault("boxA2", defaultValue: 0)
@@ -118,7 +132,7 @@ struct GridModel {
         let players: [Player] = [.me, .player]
         for player in players {
             for line in GridLine.allCases {
-                if line.gridBoxes.map({ grid[$0.firstIndex][$0.secondIndex] == player ? 1 : 0 }).reduce(0, +) == 3 {
+                if line.gridBoxes.map({ grid[$0.rowsIndex][$0.colsIndex] == player ? 1 : 0 }).reduce(0, +) == 3 {
                     self.victoriousLine = line
                     return player
                 }
