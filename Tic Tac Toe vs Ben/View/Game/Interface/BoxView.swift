@@ -11,14 +11,15 @@ struct BoxView: View {
     @EnvironmentObject private var gridViewModel: GridViewModel
     @EnvironmentObject private var aiViewModel: AIViewModel
     @Binding private var rotation3DDegrees: Double
-    private let player: Player
+    private let box: GridBox
+    private var owner: Player { box.owner }
     private let row: String
     private let col: Int
     private let isDisabled: Bool
     @State private var timer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
     @Binding private var boxHasBeenChoosen: Bool
-    init(_ player: Player, row: String, col: Int, isDisabled: Bool, rotationDegrees: Binding<Double>, boxHasBeenChoosen: Binding<Bool>) {
-        self.player = player
+    init(_ box: GridBox, row: String, col: Int, isDisabled: Bool, rotationDegrees: Binding<Double>, boxHasBeenChoosen: Binding<Bool>) {
+        self.box = box
         self.row = row
         self.col = col
         self.isDisabled = isDisabled
@@ -28,14 +29,14 @@ struct BoxView: View {
     var body: some View {
         ZStack {
             RoundedRectangle()
-                .foregroundColor(Color(player.colorName))
+                .foregroundColor(Color(owner.colorName))
                 .opacity(0.3)
-            SymbolView(player.symbol)
+            SymbolView(owner.symbol)
             RoundedRectangle()
                 .stroke()
-                .foregroundColor(Color(player.colorName))
+                .foregroundColor(Color(owner.colorName))
         }
-        .inButton(isDisabled: player.int != 0 || isDisabled || gridViewModel.hasToWait || gridViewModel.currentPlayer == .me, action: hit)
+        .inButton(isDisabled: owner.int != 0 || isDisabled || gridViewModel.hasToWait || gridViewModel.currentPlayer == .me, action: hit)
         .rotation3DEffect(
             .degrees(rotation3DDegrees),
             axis: (x: 0.0, y: 1.0, z: 0.0))

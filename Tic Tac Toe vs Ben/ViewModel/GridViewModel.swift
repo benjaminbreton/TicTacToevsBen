@@ -9,7 +9,7 @@ import Foundation
 class GridViewModel: ObservableObject {
     @Published private var model: GridModel
     @Published private(set) var aiHasToPlay: Bool
-    var grid: [[Player]] { model.grid }
+    var grid: [[GridBox]] { model.grid }
     var canContinue: Bool { model.canContinue }
     var currentPlayer: Player { model.currentPlayer }
     var victoriousPlayer: Player? { model.victoriousPlayer }

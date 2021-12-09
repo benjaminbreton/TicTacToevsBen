@@ -13,10 +13,10 @@ class AIViewModel: ObservableObject {
     init() {
         model = AI()
     }
-    func play(grid: [[Player]]) {
+    func play() {
         if !decisionInProgress {
             decisionInProgress = true
-            model.decide(grid: grid)
+            model.decide()
         }
     }
     func reset() {

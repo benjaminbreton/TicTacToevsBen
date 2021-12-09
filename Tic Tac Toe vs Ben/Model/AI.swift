@@ -12,21 +12,20 @@ struct AI {
     
     /// The made decision.
     private(set) var decision: GridBox? = nil
-    /// The current grid.
-    private var grid: [[Player]] = []
     
-    // MARK: - Computed properties
+    // MARK: - Decisions made
     
     /// All decisions made by the AI during this game.
     private var allDecisions: [GridBox] {
         GridBox.allCases.compactMap({ $0.owner == .me ? $0 : nil })
     }
-    /// Number of occupied boxes in the current grid.
-    private var occupiedBoxesCount: Int { grid.map({ $0.map({ $0.int == 0 ? 0 : 1 }).reduce(0, +) }).reduce(0, +) }
-    /// Boolean indicating whether the AI began or not
-    private var hasBegun: Bool {
-        occupiedBoxesCount.isMultiple(of: 2)
+    /// Decisions made by the player.
+    private var playerDecisions: [GridBox] {
+        GridBox.allCases.compactMap({ $0.owner == .player ? $0 : nil })
     }
+    
+    // MARK: - Free boxes
+    
     /// Free boxes in the current grid that are corners.
     private var freeCorners: [GridBox] {
         freeBoxes.compactMap({ $0.isCorner ? $0 : nil })
@@ -39,9 +38,17 @@ struct AI {
     private var freeBoxes: [GridBox] {
         GridBox.allCases.compactMap({ $0.owner == .none ? $0 : nil })
     }
-    /// Decisions made by the player.
-    private var playerDecisions: [GridBox] {
-        GridBox.allCases.compactMap({ $0.owner == .player ? $0 : nil })
+    
+    // MARK: - Occupied boxes
+    
+    /// Number of occupied boxes in the current grid.
+    private var occupiedBoxesCount: Int { 9 - freeBoxes.count }
+    
+    // MARK: - Has begun
+    
+    /// Boolean indicating whether the AI began or not
+    private var hasBegun: Bool {
+        occupiedBoxesCount.isMultiple(of: 2)
     }
     
     // MARK: - Decision
@@ -50,8 +57,8 @@ struct AI {
      Ask AI to make a decision regarding the current grid.
      - parameter grid: The current grid.
      */
-    mutating func decide(grid: [[Player]]) {
-        self.grid = grid
+    mutating func decide() {
+        //self.grid = grid
         // check if AI can win with 1 move and eventually use it
         if let victoriousBox = searchForVictoriousBox(for: .me) {
             self.decision = victoriousBox
@@ -87,7 +94,7 @@ struct AI {
         return nil
     }
     private func searchForVictoriousBox(for player: Player, in line: GridLine) -> GridBox? {
-        let lineDecisions = line.gridBoxes.map({ grid[$0.rowsIndex][$0.colsIndex] })
+        let lineDecisions = line.gridBoxes.map({ $0.owner })
         if lineDecisions.map({ $0 == player ? 1 : 0 }).reduce(0, +) == 2 {
             for index in 0..<3 {
                 if lineDecisions[index] == .none {
@@ -117,7 +124,7 @@ struct AI {
          In this method, AI will check all the lines containing the box entered in parameter to determinate if he can get two lines by playing this box.
          */
         let linesContainingTheBox = gridBox.gridLines
-        let boxOwnedInTheLines = linesContainingTheBox.map({ $0.gridBoxes.map({ grid[$0.rowsIndex][$0.colsIndex] == .me ? 1 : grid[$0.rowsIndex][$0.colsIndex] == .player ? -3 : 0 }).reduce(0, +) })
+        let boxOwnedInTheLines = linesContainingTheBox.map({ $0.gridBoxes.map({ $0.owner == .me ? 1 : $0.owner == .player ? -3 : 0 }).reduce(0, +) })
         // for each line, if the result is 1, the AI can get a line; otherwise, he can't
         let numberOfLines = boxOwnedInTheLines.map({ $0 == 1 ? 1 : 0 }).reduce(0, +)
         return numberOfLines > 1

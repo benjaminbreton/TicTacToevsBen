@@ -35,7 +35,6 @@ enum GridLine: CaseIterable {
         
         }
     }
-    var owners: [Player] { gridBoxes.map({ $0.owner }) }
     var addToXMultiplier: Bool {
         return self != .dLeftTopToRightBottom && self != .dLeftBottomToRightTop
     }

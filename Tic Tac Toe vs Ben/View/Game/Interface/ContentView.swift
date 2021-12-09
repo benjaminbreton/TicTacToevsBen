@@ -31,7 +31,7 @@ struct ContentView: View {
         .onReceive(gridViewModel.$aiHasToPlay, perform: { hasToPlay in
             if gridViewModel.currentPlayer == .me, !aiViewModel.decisionInProgress, hasToPlay {
                 gridViewModel.aiIsPlaying()
-                aiViewModel.play(grid: gridViewModel.grid)
+                aiViewModel.play()
             }
         })
     }
@@ -41,7 +41,7 @@ struct ContentView: View {
         rotationDegrees = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             if gridViewModel.currentPlayer == .me {
-                aiViewModel.play(grid: gridViewModel.grid)
+                aiViewModel.play()
             }
         }
     }

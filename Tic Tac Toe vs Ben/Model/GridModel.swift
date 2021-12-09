@@ -42,16 +42,16 @@ struct GridModel {
     /// The current player.
     var currentPlayer: Player { Player.getFromInt(currentPlayerInt) }
     /// The grid to display.
-    var grid: [[Player]] {
+    var grid: [[GridBox]] {
         [
-            GridLine.hTop.owners,
-            GridLine.hCenter.owners,
-            GridLine.hBottom.owners
+            GridLine.hTop.gridBoxes,
+            GridLine.hCenter.gridBoxes,
+            GridLine.hBottom.gridBoxes
         ]
     }
     /// Boolean indicating whether the round can continue or not, regarding the remaining free boxes in the grid.
     var canContinue: Bool {
-        grid.map({ $0.map({ $0 == .none ? 1 : 0 }).reduce(0, +) }).reduce(0, +) > 0
+        grid.map({ $0.map({ $0.owner == .none ? 1 : 0 }).reduce(0, +) }).reduce(0, +) > 0
     }
     
     // MARK: - Init
@@ -117,7 +117,7 @@ struct GridModel {
         let players: [Player] = [.me, .player]
         for player in players {
             for line in GridLine.allCases {
-                if line.gridBoxes.map({ grid[$0.rowsIndex][$0.colsIndex] == player ? 1 : 0 }).reduce(0, +) == 3 {
+                if line.gridBoxes.map({ $0.owner == player ? 1 : 0 }).reduce(0, +) == 3 {
                     self.victoriousLine = line
                     return player
                 }
