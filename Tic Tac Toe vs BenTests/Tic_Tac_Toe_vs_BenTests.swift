@@ -9,25 +9,24 @@ import XCTest
 @testable import Tic_Tac_Toe_vs_Ben
 
 class Tic_Tac_Toe_vs_BenTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    var gridViewModel: GridViewModel?
+    override func setUp() {
+        gridViewModel = GridViewModel()
+        gridViewModel?.reset()
+    }
+    override func tearDown() {
+        gridViewModel?.reset()
+        gridViewModel = nil
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    func testGivenNewGameBeginsWhenAIHasToBeginThenAIIsCurrentPlayer() throws {
+        let vm = GridViewModel(beginner: .me)
+        XCTAssert(vm.currentPlayer == .me)
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testGivenNewGameBeginsWhenPlayerHasToBeginThenPlayerIsCurrentPlayer() throws {
+        let vm = GridViewModel(beginner: .player)
+        XCTAssert(vm.currentPlayer == .player)
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
+    
 }

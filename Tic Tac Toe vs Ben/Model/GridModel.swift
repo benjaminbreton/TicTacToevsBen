@@ -44,12 +44,16 @@ struct GridModel {
     
     // MARK: - Init
     
-    init() {
+    init(beginner: Player?) {
         self.currentPlayer = .none
         if let player = getVictoriousPlayer() {
             self.victoriousPlayer = player
         }
         self.currentPlayer = Player.getFromInt(currentPlayerInt)
+        if let beginner = beginner {
+            self.beginner = beginner.switchPlayer.int
+            reset()
+        }
     }
     
     // MARK: - Reset
