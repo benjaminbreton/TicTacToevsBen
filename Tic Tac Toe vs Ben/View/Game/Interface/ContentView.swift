@@ -14,7 +14,7 @@ struct ContentView: View {
         !gridViewModel.canContinue || gridViewModel.victoriousPlayer != nil
     }
     @State private var rotationDegrees: [[Double]] = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
-    @State private var caseHasBeenChoosen: Bool = false
+    @State private var boxHasBeenChoosen: Bool = false
     
     init() {
         self.gridViewModel = GridViewModel()
@@ -24,7 +24,7 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             Color.appWhite
-            GridView(rotationDegrees: $rotationDegrees, caseHasBeenChoosen: $caseHasBeenChoosen, reset: reset)
+            GridView(rotationDegrees: $rotationDegrees, boxHasBeenChoosen: $boxHasBeenChoosen, reset: reset)
 //            if isGridDisabled {
 //                MessageView(reset: reset)
 //            }

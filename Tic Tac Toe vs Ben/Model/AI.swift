@@ -10,56 +10,59 @@ struct AI {
     
     // MARK: - Setted properties
     
-    private(set) var decision: GridCase? = nil
-    private var allDecisions: [GridCase] {
-        var decisions: [GridCase] = []
+    /// The made decision.
+    private(set) var decision: GridBox? = nil
+    /// The current grid.
+    private var grid: [[Player]] = []
+    
+    // MARK: - Computed properties
+    
+    /// All decisions made by the AI during this game.
+    private var allDecisions: [GridBox] {
+        var decisions: [GridBox] = []
         for index1 in 0..<grid.count {
             let row = grid[index1]
             for index2 in 0..<row.count {
                 let player = row[index2]
                 if player == .me {
-                    decisions.append(GridCase.allCasesMultipleArray[index1][index2])
+                    decisions.append(GridBox.allBoxesMultipleArray[index1][index2])
                 }
             }
         }
         return decisions
     }
-    private var grid: [[Player]] = []
     
-    // MARK: - Computed properties
-    
-    private var occupiedCases: Int { grid.map({ $0.map({ $0.int == 0 ? 0 : 1 }).reduce(0, +) }).reduce(0, +) }
+    private var occupiedBoxes: Int { grid.map({ $0.map({ $0.int == 0 ? 0 : 1 }).reduce(0, +) }).reduce(0, +) }
     private var hasBegun: Bool {
-        occupiedCases.isMultiple(of: 2)
+        occupiedBoxes.isMultiple(of: 2)
     }
-    private let rows = ["A", "B", "C"]
-    private let cols = [1, 2, 3]
     
-    private var freeCorners: [GridCase] {
-        freeCases.compactMap({ $0.isCorner ? $0 : nil })
+    
+    private var freeCorners: [GridBox] {
+        freeBoxes.compactMap({ $0.isCorner ? $0 : nil })
     }
-    private var freeCases: [GridCase] {
-        var freeCases: [GridCase] = []
+    private var freeBoxes: [GridBox] {
+        var freeBoxes: [GridBox] = []
         for index1 in 0..<grid.count {
             let row = grid[index1]
             for index2 in 0..<row.count {
                 let player = row[index2]
                 if player == .none {
-                    freeCases.append(GridCase.allCasesMultipleArray[index1][index2])
+                    freeBoxes.append(GridBox.allBoxesMultipleArray[index1][index2])
                 }
             }
         }
-        return freeCases
+        return freeBoxes
     }
     
-    private var playerDecisions: [GridCase] {
-        var playerDecisions: [GridCase] = []
+    private var playerDecisions: [GridBox] {
+        var playerDecisions: [GridBox] = []
         for index1 in 0..<grid.count {
             let row = grid[index1]
             for index2 in 0..<row.count {
                 let player = row[index2]
                 if player == .player {
-                    playerDecisions.append(GridCase.allCasesMultipleArray[index1][index2])
+                    playerDecisions.append(GridBox.allBoxesMultipleArray[index1][index2])
                 }
             }
         }
@@ -71,11 +74,11 @@ struct AI {
     mutating func decide(grid: [[Player]]) {
         self.grid = grid
         // check if AI can win with 1 move and eventually use it
-        if let victoriousCase = searchForVictoriousCase(for: .me) {
-            self.decision = victoriousCase
+        if let victoriousBox = searchForVictoriousBox(for: .me) {
+            self.decision = victoriousBox
         // check if player can win with 1 move and eventually impeach it
-        } else if let victoriousCase = searchForVictoriousCase(for: .player) {
-            self.decision = victoriousCase
+        } else if let victoriousBox = searchForVictoriousBox(for: .player) {
+            self.decision = victoriousBox
         // check if AI can win with 2 moves and eventually plan it
         } else if let winningChoice = getWinningChoice() {
             self.decision = winningChoice
@@ -83,9 +86,9 @@ struct AI {
              If previous cases failed, a decision has to be made based on which player began, and moves already done
              */
         } else if hasBegun {
-            self.decision = getCaseWhenAIBegun()
+            self.decision = getBoxWhenAIBegun()
         } else {
-            self.decision = getCaseWhenIDidntBegin()
+            self.decision = getBoxWhenIDidntBegin()
         }
     }
     
@@ -96,29 +99,29 @@ struct AI {
      - parameter player: The player.
      - returns: The move.
      */
-    private func searchForVictoriousCase(for player: Player) -> GridCase? {
+    private func searchForVictoriousBox(for player: Player) -> GridBox? {
         for index in 0..<3 {
-            if let victoriousCase = searchForVictoriousCase(for: player, index1: [index, index, index]) {
-                return victoriousCase
+            if let victoriousBox = searchForVictoriousBox(for: player, index1: [index, index, index]) {
+                return victoriousBox
             }
-            if let victoriousCase = searchForVictoriousCase(for: player, index2: [index, index, index]) {
-                return victoriousCase
+            if let victoriousBox = searchForVictoriousBox(for: player, index2: [index, index, index]) {
+                return victoriousBox
             }
         }
-        if let victoriousCase = searchForVictoriousCase(for: player, index1: [0, 1, 2], index2: [0, 1, 2]) {
-            return victoriousCase
+        if let victoriousBox = searchForVictoriousBox(for: player, index1: [0, 1, 2], index2: [0, 1, 2]) {
+            return victoriousBox
         }
-        if let victoriousCase = searchForVictoriousCase(for: player, index1: [0, 1, 2], index2: [2, 1, 0]) {
-            return victoriousCase
+        if let victoriousBox = searchForVictoriousBox(for: player, index1: [0, 1, 2], index2: [2, 1, 0]) {
+            return victoriousBox
         }
         return nil
     }
-    private func searchForVictoriousCase(for player: Player, index1: [Int] = [0, 1, 2], index2: [Int] = [0, 1, 2]) -> GridCase? {
+    private func searchForVictoriousBox(for player: Player, index1: [Int] = [0, 1, 2], index2: [Int] = [0, 1, 2]) -> GridBox? {
         let line = [0, 1, 2].map({ grid[index1[$0]][index2[$0]] })
         if line.map({ $0 == player ? 1 : 0 }).reduce(0, +) == 2 {
             for index in 0..<3 {
                 if line[index] == .none {
-                    return GridCase.allCasesMultipleArray[index1[index]][index2[index]]
+                    return GridBox.allBoxesMultipleArray[index1[index]][index2[index]]
                 }
             }
         }
@@ -127,94 +130,94 @@ struct AI {
     
     // MARK: - AI begun
     
-    private func getCaseWhenAIBegun() -> GridCase {
-        var choices: [GridCase] = []
-        if occupiedCases == 0 {
+    private func getBoxWhenAIBegun() -> GridBox {
+        var choices: [GridBox] = []
+        if occupiedBoxes == 0 {
             // first choice : a corner
             choices = [
-                .caseA1,
-                .caseA3,
-                .caseC1,
-                .caseC3
+                .boxA1,
+                .boxA3,
+                .boxC1,
+                .boxC3
             ]
-        } else if occupiedCases == 2 {
+        } else if occupiedBoxes == 2 {
             if playerDecisions[0].isMiddle {
                 choices = [getDecisionInverse(allDecisions[0])]
             } else if playerDecisions[0].isMiddleCorner {
-                choices = [.caseB2]
+                choices = [.boxB2]
             } else {
                 choices = freeCorners
             }
         } else {
-            choices = freeCases
+            choices = freeBoxes
         }
         return choices[Int.random(in: 0..<choices.count)]
     }
-    private func getCaseWhenIDidntBegin() -> GridCase {
-        var choices: [GridCase] = []
-        if occupiedCases == 1 {
+    private func getBoxWhenIDidntBegin() -> GridBox {
+        var choices: [GridBox] = []
+        if occupiedBoxes == 1 {
             if playerDecisions[0].isMiddle {
                 choices = [
-                    .caseA1,
-                    .caseA3,
-                    .caseC1,
-                    .caseC3
+                    .boxA1,
+                    .boxA3,
+                    .boxC1,
+                    .boxC3
                 ]
             } else {
-                choices = [.caseB2]
+                choices = [.boxB2]
             }
-        } else if occupiedCases == 3 {
+        } else if occupiedBoxes == 3 {
             if playerDecisions[0].isCorner {
                 if playerDecisions[1].isCorner {
                     choices = [
-                        .caseA2,
-                        .caseB1,
-                        .caseB3,
-                        .caseC2
+                        .boxA2,
+                        .boxB1,
+                        .boxB3,
+                        .boxC2
                     ]
                 } else if playerDecisions[1].isMiddle {
                     choices = freeCorners
                 } else {
-                    choices = freeCases
+                    choices = freeBoxes
                 }
             } else if playerDecisions[0].isMiddle {
                 if playerDecisions[1].isCorner {
                     choices = freeCorners
                 } else {
-                    choices = freeCases
+                    choices = freeBoxes
                 }
             } else {
-                choices = freeCases
+                choices = freeBoxes
             }
         } else {
-            choices = freeCases
+            choices = freeBoxes
         }
         return choices[Int.random(in: 0..<choices.count)]
     }
     
     // MARK: - Win with 2 moves
     
-    private func getWinningChoice() -> GridCase? {
-        for gridCase in freeCases {
-            if isWinningChoice(gridCase) { return gridCase }
+    private func getWinningChoice() -> GridBox? {
+        for gridBox in freeBoxes {
+            if isWinningChoice(gridBox) { return gridBox }
         }
         return nil
     }
-    private func isWinningChoice(_ gridCase: GridCase) -> Bool {
-        let rowValue = getValueOfLine(grid[gridCase.firstIndex]) + 1
-        let colValue = getValueOfLine([0, 1, 2].map({ grid[$0][gridCase.secondIndex] })) + 1
+    private func isWinningChoice(_ gridBox: GridBox) -> Bool {
+        let rowValue = getValueOfLine(grid[gridBox.firstIndex]) + 1
+        let colValue = getValueOfLine([0, 1, 2].map({ grid[$0][gridBox.secondIndex] })) + 1
         let diag1Value: Int
         let diag2Value: Int
-        if gridCase.isMiddleCorner {
+        if gridBox.isMiddleCorner {
             diag1Value = 0
             diag2Value = 0
         } else {
-            if (gridCase.isMiddle) || (gridCase.firstIndex == gridCase.secondIndex) {
+            if (gridBox.isMiddle) || (gridBox.firstIndex == gridBox.secondIndex) {
                 diag1Value = getValueOfLine([grid[0][0], grid[1][1], grid[2][2]]) + 1
             } else {
                 diag1Value = 0
             }
-            if (gridCase.isMiddle) || (gridCase.firstIndex != gridCase.secondIndex) {
+            if (gridBox.isMiddle) || (gridBox.firstIndex != gridBox.secondIndex) {
                 diag2Value = getValueOfLine([grid[0][2], grid[1][1], grid[2][0]]) + 1
             } else {
                 diag2Value = 0
@@ -240,8 +243,8 @@ struct AI {
     mutating func reset() {
         decision = nil
     }
-    private func getDecisionInverse(_ decision: GridCase) -> GridCase {
-        GridCase.getCase(row: getRowInverse(decision.row), col: getColInverse(decision.col))
+    private func getDecisionInverse(_ decision: GridBox) -> GridBox {
+        GridBox.getBox(row: getRowInverse(decision.row), col: getColInverse(decision.col))
     }
     private func getColInverse(_ col: Int) -> Int {
         switch col {

@@ -7,24 +7,24 @@
 
 import Foundation
 struct GridModel {
-    @UserDefault("caseA1", defaultValue: 0)
-    private var caseA1: Int
-    @UserDefault("caseA2", defaultValue: 0)
-    private var caseA2: Int
-    @UserDefault("caseA3", defaultValue: 0)
-    private var caseA3: Int
-    @UserDefault("caseB1", defaultValue: 0)
-    private var caseB1: Int
-    @UserDefault("caseB2", defaultValue: 0)
-    private var caseB2: Int
-    @UserDefault("caseB3", defaultValue: 0)
-    private var caseB3: Int
-    @UserDefault("caseC1", defaultValue: 0)
-    private var caseC1: Int
-    @UserDefault("caseC2", defaultValue: 0)
-    private var caseC2: Int
-    @UserDefault("caseC3", defaultValue: 0)
-    private var caseC3: Int
+    @UserDefault("boxA1", defaultValue: 0)
+    private var boxA1: Int
+    @UserDefault("boxA2", defaultValue: 0)
+    private var boxA2: Int
+    @UserDefault("boxA3", defaultValue: 0)
+    private var boxA3: Int
+    @UserDefault("boxB1", defaultValue: 0)
+    private var boxB1: Int
+    @UserDefault("boxB2", defaultValue: 0)
+    private var boxB2: Int
+    @UserDefault("boxB3", defaultValue: 0)
+    private var boxB3: Int
+    @UserDefault("boxC1", defaultValue: 0)
+    private var boxC1: Int
+    @UserDefault("boxC2", defaultValue: 0)
+    private var boxC2: Int
+    @UserDefault("boxC3", defaultValue: 0)
+    private var boxC3: Int
     @UserDefault("beginner", defaultValue: 2)
     private var beginner: Int
     @UserDefault("currentPlayer", defaultValue: 2)
@@ -36,9 +36,9 @@ struct GridModel {
     var currentPlayer: Player { Player.getFromInt(currentPlayerInt) }
     var grid: [[Player]] { rowsInt.map({ $0.map( { Player.getFromInt($0)} ) }) }
     
-    private var rowsInt: [[Int]] { [[caseA1, caseA2, caseA3], [caseB1, caseB2, caseB3], [caseC1, caseC2, caseC3]] }
-    private var colsInt: [[Int]] { [[caseA1, caseB1, caseC1], [caseA2, caseB2, caseC2], [caseA3, caseB3, caseC3]] }
-    private var diagInt: [[Int]] { [[caseA1, caseB2, caseC3], [caseA3, caseB2, caseC1]] }
+    private var rowsInt: [[Int]] { [[boxA1, boxA2, boxA3], [boxB1, boxB2, boxB3], [boxC1, boxC2, boxC3]] }
+    private var colsInt: [[Int]] { [[boxA1, boxB1, boxC1], [boxA2, boxB2, boxC2], [boxA3, boxB3, boxC3]] }
+    private var diagInt: [[Int]] { [[boxA1, boxB2, boxC3], [boxA3, boxB2, boxC1]] }
     
     var canContinue: Bool {
         rowsInt.map({ $0.map({ $0 == 0 ? 1 : 0 }).reduce(0, +) }).reduce(0, +) > 0
@@ -55,15 +55,15 @@ struct GridModel {
     
     
     mutating func reset() {
-        caseA1 = 0
-        caseA2 = 0
-        caseA3 = 0
-        caseB1 = 0
-        caseB2 = 0
-        caseB3 = 0
-        caseC1 = 0
-        caseC2 = 0
-        caseC3 = 0
+        boxA1 = 0
+        boxA2 = 0
+        boxA3 = 0
+        boxB1 = 0
+        boxB2 = 0
+        boxB3 = 0
+        boxC1 = 0
+        boxC2 = 0
+        boxC3 = 0
         beginner = Player.getFromInt(beginner).switchPlayer.int
         currentPlayerInt = beginner
         victoriousPlayer = nil
@@ -76,27 +76,27 @@ struct GridModel {
         guard col > 0, col < 4 else { return }
         if row == "A" {
             if col == 1 {
-                caseA1 = currentPlayerInt
+                boxA1 = currentPlayerInt
             } else if col == 2 {
-                caseA2 = currentPlayerInt
+                boxA2 = currentPlayerInt
             } else if col == 3 {
-                caseA3 = currentPlayerInt
+                boxA3 = currentPlayerInt
             }
         } else if row == "B" {
             if col == 1 {
-                caseB1 = currentPlayerInt
+                boxB1 = currentPlayerInt
             } else if col == 2 {
-                caseB2 = currentPlayerInt
+                boxB2 = currentPlayerInt
             } else if col == 3 {
-                caseB3 = currentPlayerInt
+                boxB3 = currentPlayerInt
             }
         } else if row == "C" {
             if col == 1 {
-                caseC1 = currentPlayerInt
+                boxC1 = currentPlayerInt
             } else if col == 2 {
-                caseC2 = currentPlayerInt
+                boxC2 = currentPlayerInt
             } else if col == 3 {
-                caseC3 = currentPlayerInt
+                boxC3 = currentPlayerInt
             }
         }
         hasToWait = true
@@ -118,7 +118,7 @@ struct GridModel {
         let players: [Player] = [.me, .player]
         for player in players {
             for line in GridLine.allCases {
-                if line.gridCases.map({ grid[$0.firstIndex][$0.secondIndex] == player ? 1 : 0 }).reduce(0, +) == 3 {
+                if line.gridBoxes.map({ grid[$0.firstIndex][$0.secondIndex] == player ? 1 : 0 }).reduce(0, +) == 3 {
                     self.victoriousLine = line
                     return player
                 }

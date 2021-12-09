@@ -1,5 +1,5 @@
 //
-//  CaseView.swift
+//  BoxView.swift
 //  Tic Tac Toe vs Ben
 //
 //  Created by Benjamin Breton on 07/12/2021.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CaseView: View {
+struct BoxView: View {
     @EnvironmentObject private var gridViewModel: GridViewModel
     @EnvironmentObject private var aiViewModel: AIViewModel
     @Binding private var rotation3DDegrees: Double
@@ -16,14 +16,14 @@ struct CaseView: View {
     private let col: Int
     private let isDisabled: Bool
     @State private var timer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
-    @Binding private var caseHasBeenChoosen: Bool
-    init(_ player: Player, row: String, col: Int, isDisabled: Bool, rotationDegrees: Binding<Double>, caseHasBeenChoosen: Binding<Bool>) {
+    @Binding private var boxHasBeenChoosen: Bool
+    init(_ player: Player, row: String, col: Int, isDisabled: Bool, rotationDegrees: Binding<Double>, boxHasBeenChoosen: Binding<Bool>) {
         self.player = player
         self.row = row
         self.col = col
         self.isDisabled = isDisabled
         self._rotation3DDegrees = rotationDegrees
-        self._caseHasBeenChoosen = caseHasBeenChoosen
+        self._boxHasBeenChoosen = boxHasBeenChoosen
     }
     var body: some View {
         ZStack {
@@ -41,23 +41,23 @@ struct CaseView: View {
             axis: (x: 0.0, y: 1.0, z: 0.0))
         .animation(.linear(duration: 0.5))
         .onReceive(timer, perform: { _ in
-            if gridViewModel.currentPlayer == .me, let decision = aiViewModel.decision, decision.row == row, decision.col == col, !caseHasBeenChoosen {
+            if gridViewModel.currentPlayer == .me, let decision = aiViewModel.decision, decision.row == row, decision.col == col, !boxHasBeenChoosen {
                 aiViewModel.reset()
                 hit()
             }
         })
     }
     private func hit() {
-        caseHasBeenChoosen = true
+        boxHasBeenChoosen = true
         aiViewModel.reset()
         gridViewModel.forceWaiting()
         rotation3DDegrees = gridViewModel.currentPlayer.rotation90
         waitForAction(.sendChoice)
     }
-    enum CaseAction {
+    enum BoxAction {
         case sendChoice, endRound
     }
-    private func waitForAction(_ action: CaseAction) {
+    private func waitForAction(_ action: BoxAction) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             switch action {
             case .sendChoice:
@@ -65,7 +65,7 @@ struct CaseView: View {
                 rotation3DDegrees = gridViewModel.currentPlayer.rotation180
                 waitForAction(.endRound)
             case .endRound:
-                caseHasBeenChoosen = false
+                boxHasBeenChoosen = false
                 gridViewModel.nextPlayer()
                 
             }

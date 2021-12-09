@@ -10,7 +10,7 @@
 		0345CAF52760B5F90045944F /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0345CAF42760B5F90045944F /* GridView.swift */; };
 		0345CAFA2760B84A0045944F /* InRoundedRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0345CAF92760B84A0045944F /* InRoundedRectangle.swift */; };
 		0345CAFF2760B8710045944F /* Font+appFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0345CAFE2760B8710045944F /* Font+appFont.swift */; };
-		0345CB0E2760CAE00045944F /* GridCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0345CB0D2760CAE00045944F /* GridCase.swift */; };
+		0345CB0E2760CAE00045944F /* GridBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0345CB0D2760CAE00045944F /* GridBox.swift */; };
 		0345CB132760CB090045944F /* GridLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0345CB122760CB090045944F /* GridLine.swift */; };
 		0345CB182760FCDF0045944F /* VictoriousLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0345CB172760FCDE0045944F /* VictoriousLineView.swift */; };
 		0345CB1D2760FD010045944F /* Float+cgFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0345CB1C2760FD010045944F /* Float+cgFloat.swift */; };
@@ -59,7 +59,7 @@
 		0345CAF42760B5F90045944F /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		0345CAF92760B84A0045944F /* InRoundedRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InRoundedRectangle.swift; sourceTree = "<group>"; };
 		0345CAFE2760B8710045944F /* Font+appFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+appFont.swift"; sourceTree = "<group>"; };
-		0345CB0D2760CAE00045944F /* GridCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCase.swift; sourceTree = "<group>"; };
+		0345CB0D2760CAE00045944F /* GridBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridBox.swift; sourceTree = "<group>"; };
 		0345CB122760CB090045944F /* GridLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLine.swift; sourceTree = "<group>"; };
 		0345CB172760FCDE0045944F /* VictoriousLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VictoriousLineView.swift; sourceTree = "<group>"; };
 		0345CB1C2760FD010045944F /* Float+cgFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+cgFloat.swift"; sourceTree = "<group>"; };
@@ -227,7 +227,7 @@
 				03E46CF6275F4BCD008C00FF /* GridModel.swift */,
 				03E46D1E275F61C9008C00FF /* Player.swift */,
 				03E46D23275F61E4008C00FF /* AI.swift */,
-				0345CB0D2760CAE00045944F /* GridCase.swift */,
+				0345CB0D2760CAE00045944F /* GridBox.swift */,
 				0345CB122760CB090045944F /* GridLine.swift */,
 				03E46CFB275F4C73008C00FF /* UserDefault.swift */,
 			);
@@ -415,7 +415,7 @@
 				03E46D24275F61E4008C00FF /* AI.swift in Sources */,
 				03E46D10275F6169008C00FF /* InButton.swift in Sources */,
 				03E46D06275F6143008C00FF /* CommonProperties.swift in Sources */,
-				0345CB0E2760CAE00045944F /* GridCase.swift in Sources */,
+				0345CB0E2760CAE00045944F /* GridBox.swift in Sources */,
 				0345CB1D2760FD010045944F /* Float+cgFloat.swift in Sources */,
 				03E46D0B275F6159008C00FF /* RoundedRectangle+defaultCornerRadius.swift in Sources */,
 				03E46CFC275F4C73008C00FF /* UserDefault.swift in Sources */,

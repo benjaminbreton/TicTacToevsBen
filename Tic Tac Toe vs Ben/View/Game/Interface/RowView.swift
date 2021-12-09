@@ -12,18 +12,18 @@ struct RowView: View {
     private let row: String
     private let isDisabled: Bool
     @Binding private var rotationDegrees: [Double]
-    @Binding private var caseHasBeenChoosen: Bool
-    init(_ rowDatas: [Player], row: String, isDisabled: Bool, rotationDegrees: Binding<[Double]>, caseHasBeenChoosen: Binding<Bool>) {
+    @Binding private var boxHasBeenChoosen: Bool
+    init(_ rowDatas: [Player], row: String, isDisabled: Bool, rotationDegrees: Binding<[Double]>, boxHasBeenChoosen: Binding<Bool>) {
         self.rowDatas = rowDatas
         self.row = row
         self.isDisabled = isDisabled
         self._rotationDegrees = rotationDegrees
-        self._caseHasBeenChoosen = caseHasBeenChoosen
+        self._boxHasBeenChoosen = boxHasBeenChoosen
     }
     var body: some View {
         HStack(spacing: CommonProperties.shared.getMin(of: 1)) {
             ForEach(0..<rowDatas.count) { index in
-                CaseView(rowDatas[index], row: row, col: index + 1, isDisabled: isDisabled, rotationDegrees: $rotationDegrees[index], caseHasBeenChoosen: $caseHasBeenChoosen)
+                BoxView(rowDatas[index], row: row, col: index + 1, isDisabled: isDisabled, rotationDegrees: $rotationDegrees[index], boxHasBeenChoosen: $boxHasBeenChoosen)
             }
         }
     }

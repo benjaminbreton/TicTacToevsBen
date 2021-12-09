@@ -8,7 +8,7 @@
 import Foundation
 class AIViewModel: ObservableObject {
     @Published private var model: AI
-    var decision: GridCase? { model.decision }
+    var decision: GridBox? { model.decision }
     private(set) var decisionInProgress: Bool = false
     init() {
         model = AI()

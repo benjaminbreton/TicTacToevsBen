@@ -57,7 +57,7 @@ enum GridLine: CaseIterable {
         let cellMiddle: Float = 100 / 82 * 80 / 3 / 2
         return cellMiddle + cellMiddle * 2 * index + space * index
     }
-    var gridCases: [GridCase] {
-        [0, 1, 2].map({ GridCase.getCase(row: gridRows[$0], col: gridCols[$0]) })
+    var gridBoxes: [GridBox] {
+        [0, 1, 2].map({ GridBox.getBox(row: gridRows[$0], col: gridCols[$0]) })
     }
 }
