@@ -15,7 +15,6 @@ struct ContentView: View {
     }
     @State private var rotationDegrees: [[Double]] = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     @State private var boxHasBeenChoosen: Bool = false
-    
     init() {
         self.gridViewModel = GridViewModel()
         self.aiViewModel = AIViewModel()
@@ -25,9 +24,6 @@ struct ContentView: View {
         ZStack {
             Color.appWhite
             GridView(rotationDegrees: $rotationDegrees, boxHasBeenChoosen: $boxHasBeenChoosen, reset: reset)
-//            if isGridDisabled {
-//                MessageView(reset: reset)
-//            }
         }
         .font(.appRegular)
         .environmentObject(gridViewModel)
