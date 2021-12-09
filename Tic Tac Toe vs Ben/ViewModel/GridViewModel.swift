@@ -39,7 +39,7 @@ class GridViewModel: ObservableObject {
     }
     
     func playerDidChoose(row: String, col: Int) {
-        model.playerDidChoose(row: row, col: col)
+        model.playerDidChoose(GridBox.getBox(row: row, col: col))
     }
     
     func reset() {

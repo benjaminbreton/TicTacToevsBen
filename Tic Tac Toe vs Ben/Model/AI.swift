@@ -19,17 +19,7 @@ struct AI {
     
     /// All decisions made by the AI during this game.
     private var allDecisions: [GridBox] {
-        var decisions: [GridBox] = []
-        for index1 in 0..<grid.count {
-            let row = grid[index1]
-            for index2 in 0..<row.count {
-                let player = row[index2]
-                if player == .me {
-                    decisions.append(GridBox.allBoxesMultipleArray[index1][index2])
-                }
-            }
-        }
-        return decisions
+        GridBox.allCases.compactMap({ $0.owner == .me ? $0 : nil })
     }
     /// Number of occupied boxes in the current grid.
     private var occupiedBoxesCount: Int { grid.map({ $0.map({ $0.int == 0 ? 0 : 1 }).reduce(0, +) }).reduce(0, +) }
@@ -47,31 +37,11 @@ struct AI {
     }
     /// Free boxes in the grid.
     private var freeBoxes: [GridBox] {
-        var freeBoxes: [GridBox] = []
-        for index1 in 0..<grid.count {
-            let row = grid[index1]
-            for index2 in 0..<row.count {
-                let player = row[index2]
-                if player == .none {
-                    freeBoxes.append(GridBox.allBoxesMultipleArray[index1][index2])
-                }
-            }
-        }
-        return freeBoxes
+        GridBox.allCases.compactMap({ $0.owner == .none ? $0 : nil })
     }
     /// Decisions made by the player.
     private var playerDecisions: [GridBox] {
-        var playerDecisions: [GridBox] = []
-        for index1 in 0..<grid.count {
-            let row = grid[index1]
-            for index2 in 0..<row.count {
-                let player = row[index2]
-                if player == .player {
-                    playerDecisions.append(GridBox.allBoxesMultipleArray[index1][index2])
-                }
-            }
-        }
-        return playerDecisions
+        GridBox.allCases.compactMap({ $0.owner == .player ? $0 : nil })
     }
     
     // MARK: - Decision

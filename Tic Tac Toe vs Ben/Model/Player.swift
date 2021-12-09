@@ -7,7 +7,14 @@
 
 import Foundation
 enum Player: CaseIterable {
+    
+    // MARK: - Cases
+    
     case me, player, none
+    
+    // MARK: - Properties for saving
+    
+    /// Int reprensenting the case.
     var int: Int {
         switch self {
         case .me:
@@ -18,6 +25,10 @@ enum Player: CaseIterable {
             return 0
         }
     }
+    
+    // MARK: - Displayed properties
+    
+    /// Text to display when the player has top play.
     var text: String {
         switch self {
         case .me:
@@ -28,6 +39,7 @@ enum Player: CaseIterable {
             return ""
         }
     }
+    /// Text to display when the player is victorious.
     var winMessage: String {
         switch self {
         case .me:
@@ -36,6 +48,7 @@ enum Player: CaseIterable {
             return "vous avez gagné ! Bravo !"
         }
     }
+    /// Box first rotation when it has been hitten.
     var rotation90: Double {
         switch self {
         case .me:
@@ -46,6 +59,7 @@ enum Player: CaseIterable {
             return 0
         }
     }
+    /// Box second rotation when it has been hitten.
     var rotation180: Double {
         switch self {
         case .me:
@@ -56,6 +70,7 @@ enum Player: CaseIterable {
             return 0
         }
     }
+    /// The symbol to display in a box.
     var symbol: String {
         switch self {
         case .me:
@@ -66,14 +81,7 @@ enum Player: CaseIterable {
             return ""
         }
     }
-    var switchPlayer: Player {
-        switch self {
-        case .player:
-            return .me
-        default:
-            return .player
-        }
-    }
+    /// The player's color's name.
     var colorName: String {
         switch self {
         case .me:
@@ -84,6 +92,26 @@ enum Player: CaseIterable {
             return "AppBlack"
         }
     }
+    
+    // MARK: - Game properties
+    
+    /// The new player replacing the previous.
+    var switchPlayer: Player {
+        switch self {
+        case .player:
+            return .me
+        default:
+            return .player
+        }
+    }
+    
+    // MARK: - Get player
+    
+    /**
+     Get a player using the Int.
+     - parameter int: The player's int.
+     - returns: The Player.
+     */
     static func getFromInt(_ int: Int) -> Player {
         let result = allCases.compactMap({ $0.int == int ? $0 : nil })
         if result.count == 1 {

@@ -7,22 +7,37 @@
 
 import Foundation
 enum GridBox: CaseIterable {
-    /*
-     The grid:
-     
-     Rows / Cols | 1 | 2 | 3 |
-     ____________|___|___|___|
-     A           |   |   |   |
-     ____________|___|___|___|
-     B           |   |   |   |
-     ____________|___|___|___|
-     C           |   |   |   |
-     ____________|___|___|___|
-     
-     */
-    case boxA1, boxA2, boxA3, boxB1, boxB2, boxB3, boxC1, boxC2, boxC3
-    /// Rows of the grid.
-    private var rows: [String] { ["A", "B", "C"] }
+    
+    // MARK: - Cases
+    
+                                // Rows / Cols | 1 | 2 | 3 |
+                                // ____________|___|___|___|
+    case boxA1, boxA2, boxA3    // A           |   |   |   |
+                                // ____________|___|___|___|
+    case boxB1, boxB2, boxB3    // B           |   |   |   |
+                                // ____________|___|___|___|
+    case boxC1, boxC2, boxC3    // C           |   |   |   |
+                                // ____________|___|___|___|
+    
+    // MARK: - Owner
+    
+    /// The owner of this box.
+    var owner: Player {
+        get { Player.getFromInt(savedValue) }
+        set { savedValue = newValue.int }
+    }
+    /// Property used to save the owner in UserDefaults.
+    private var savedValue: Int {
+        get {
+            UserDefaults.standard.object(forKey: "box\(row)\(col)") as? Int ?? 0
+        }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: "box\(row)\(col)")
+        }
+    }
+    
+    // MARK: - Rows
+    
     /// The row's index in the grid for the box.
     var rowsIndex: Int {
         switch self {
@@ -34,6 +49,13 @@ enum GridBox: CaseIterable {
             return 2
         }
     }
+    /// Rows of the grid.
+    private var rows: [String] { ["A", "B", "C"] }
+    /// The row's letter for the box.
+    var row: String { rows[rowsIndex] }
+    
+    // MARK: - Cols
+    
     /// The col's index in the grid for the box.
     var colsIndex: Int {
         switch self {
@@ -45,26 +67,36 @@ enum GridBox: CaseIterable {
             return 2
         }
     }
+    /// The col's number for the box
+    var col: Int { colsIndex + 1 }
+    
+    // MARK: - Position in the grid
+    
     /// Boolean indicating whether the box is situated in the middle of two corners (except the center box), or not.
     var isMiddleCorner: Bool { (rowsIndex == 1 || colsIndex == 1) && (rowsIndex != colsIndex) }
     /// Boolean indicating whether the box is situated on the grid's center or not.
     var isCenter: Bool { self == .boxB2 }
     /// Boolean indicating whether the box is situated on a grid's corner or not.
     var isCorner: Bool { (rowsIndex == 0 || rowsIndex == 2) && (colsIndex == 0 || colsIndex == 2) }
-    /// The row's letter for the box.
-    var row: String { rows[rowsIndex] }
-    /// The col's number for the box
-    var col: Int { colsIndex + 1 }
+    
+    // MARK: - Opposite position
+    
     /// Get the box situated at the opposite on the grid of this one.
     var oppositeBox: GridBox {
         let col = self.col == 1 ? 3 : self.col == 3 ? 1 : 2
         let row = self.row == "A" ? "C" : self.row == "C" ? "A" : "B"
         return GridBox.getBox(row: row, col: col)
     }
+    
+    // MARK: - GridLines
+    
     /// All GridLines containing the GridBox.
     var gridLines: [GridLine] {
         GridLine.allCases.compactMap({ $0.gridBoxes.contains(self) ? $0 : nil })
     }
+    
+    // MARK: - Get box
+    
     /**
      Method returning a GridBox regarding its row's letter and col's number.
      - parameter row: The row's letter of the box.
@@ -78,6 +110,8 @@ enum GridBox: CaseIterable {
         }
         return .boxA1
     }
+    
+    
     /// An array representing the grid and its GridBoxes.
     static var allBoxesMultipleArray: [[GridBox]] {
         [GridLine.hTop.gridBoxes,
