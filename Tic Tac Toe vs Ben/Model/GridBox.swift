@@ -110,12 +110,4 @@ enum GridBox: CaseIterable {
         }
         return .boxA1
     }
-    
-    
-    /// An array representing the grid and its GridBoxes.
-    static var allBoxesMultipleArray: [[GridBox]] {
-        [GridLine.hTop.gridBoxes,
-         GridLine.hCenter.gridBoxes,
-         GridLine.hBottom.gridBoxes]
-    }
 }

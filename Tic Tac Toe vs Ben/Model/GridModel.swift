@@ -7,19 +7,6 @@
 
 import Foundation
 struct GridModel {
-    /*
-     The grid:
-     
-     Rows / Cols | 1 | 2 | 3 |
-     ____________|___|___|___|
-     A           |   |   |   |
-     ____________|___|___|___|
-     B           |   |   |   |
-     ____________|___|___|___|
-     C           |   |   |   |
-     ____________|___|___|___|
-     
-     */
     
     // MARK: - Saved properties
     
@@ -36,11 +23,12 @@ struct GridModel {
     private(set) var victoriousLine: GridLine? = nil
     /// Boolean indicating whether the player has to wait before choosing a box, or not.
     private(set) var hasToWait: Bool = false
+    /// The current player.
+    private(set) var currentPlayer: Player
     
     // MARK: - Computed properties
     
-    /// The current player.
-    var currentPlayer: Player { Player.getFromInt(currentPlayerInt) }
+    
     /// The grid to display.
     var grid: [[GridBox]] {
         [
@@ -57,9 +45,11 @@ struct GridModel {
     // MARK: - Init
     
     init() {
+        self.currentPlayer = .none
         if let player = getVictoriousPlayer() {
             self.victoriousPlayer = player
         }
+        self.currentPlayer = Player.getFromInt(currentPlayerInt)
     }
     
     // MARK: - Reset
@@ -73,6 +63,7 @@ struct GridModel {
         }
         beginner = Player.getFromInt(beginner).switchPlayer.int
         currentPlayerInt = beginner
+        currentPlayer = Player.getFromInt(currentPlayerInt)
         victoriousPlayer = nil
         victoriousLine = nil
         hasToWait = false
@@ -87,6 +78,7 @@ struct GridModel {
         var box = gridBox
         box.owner = currentPlayer
         hasToWait = true
+        currentPlayerInt = currentPlayer.switchPlayer.int
     }
     
     // MARK: - Next player
@@ -102,11 +94,10 @@ struct GridModel {
             return
         }
         // otherwise check if the round can continue
-        if canContinue {
-            currentPlayerInt = currentPlayer.switchPlayer.int
-        } else {
+        if !canContinue {
             currentPlayerInt = 0
         }
+        currentPlayer = Player.getFromInt(currentPlayerInt)
         hasToWait = false
     }
     /**

@@ -10,7 +10,6 @@ import SwiftUI
 struct GridView: View {
     @EnvironmentObject private var gridViewModel: GridViewModel
     @EnvironmentObject private var aiViewModel: AIViewModel
-    private let rows: [String] = "ABC".map({ "\($0)" })
     var isGridDisabled: Bool {
         !gridViewModel.canContinue || gridViewModel.victoriousPlayer != nil
     }
@@ -33,7 +32,7 @@ struct GridView: View {
             ZStack {
                 VStack(spacing: CommonProperties.size.getMin(of: 1)) {
                     ForEach(0..<gridViewModel.grid.count) { index in
-                        RowView(gridViewModel.grid[index], row: rows[index], isDisabled: isGridDisabled, rotationDegrees: $rotationDegrees[index], boxHasBeenChoosen: $boxHasBeenChoosen)
+                        RowView(gridViewModel.grid[index], isDisabled: isGridDisabled, rotationDegrees: $rotationDegrees[index], boxHasBeenChoosen: $boxHasBeenChoosen)
                     }
                 }
                 VictoriousLineView()
