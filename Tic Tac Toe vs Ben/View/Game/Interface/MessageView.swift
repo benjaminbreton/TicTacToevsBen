@@ -11,7 +11,7 @@ struct MessageView: View {
     @EnvironmentObject private var gridViewModel: GridViewModel
     @EnvironmentObject private var aiViewModel: AIViewModel
     private var messageSize: CGFloat {
-        CommonProperties.shared.getMin(of: 60)
+        CommonProperties.size.getMin(of: 60)
     }
     private let reset: () -> Void
     init(reset: @escaping () -> Void) {

@@ -9,6 +9,6 @@ import SwiftUI
 
 extension RoundedRectangle {
     init() {
-        self.init(cornerRadius: CommonProperties.shared.getMin(of: 2))
+        self.init(cornerRadius: CommonProperties.size.getMin(of: 2))
     }
 }

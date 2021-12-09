@@ -21,7 +21,7 @@ struct RowView: View {
         self._boxHasBeenChoosen = boxHasBeenChoosen
     }
     var body: some View {
-        HStack(spacing: CommonProperties.shared.getMin(of: 1)) {
+        HStack(spacing: CommonProperties.size.getMin(of: 1)) {
             ForEach(0..<rowDatas.count) { index in
                 BoxView(rowDatas[index], row: row, col: index + 1, isDisabled: isDisabled, rotationDegrees: $rotationDegrees[index], boxHasBeenChoosen: $boxHasBeenChoosen)
             }

@@ -8,15 +8,24 @@
 import SwiftUI
 
 class CommonProperties {
-    static let shared = CommonProperties()
+    
+    // MARK: - Properties
+    
+    static let size = Size()
     private init() { }
-    func getHeight(of percent: CGFloat) -> CGFloat {
-        UIScreen.main.bounds.height / 100 * percent
-    }
-    func getWidth(of percent: CGFloat) -> CGFloat {
-        UIScreen.main.bounds.width / 100 * percent
-    }
-    func getMin(of percent: CGFloat) -> CGFloat {
-        min(getHeight(of: percent), getWidth(of: percent))
+    
+    // MARK: - Size
+    
+    class Size {
+        fileprivate init() { }
+        private func getHeight(of percent: CGFloat) -> CGFloat {
+            UIScreen.main.bounds.height / 100 * percent
+        }
+        private func getWidth(of percent: CGFloat) -> CGFloat {
+            UIScreen.main.bounds.width / 100 * percent
+        }
+        func getMin(of percent: CGFloat) -> CGFloat {
+            min(getHeight(of: percent), getWidth(of: percent))
+        }
     }
 }

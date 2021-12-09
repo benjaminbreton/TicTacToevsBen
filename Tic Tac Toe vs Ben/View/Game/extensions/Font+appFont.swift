@@ -12,6 +12,6 @@ extension Font {
     static var appTitle: Font { getFont(size: 2) }
     static var appBigTitle: Font { getFont(size: 4) }
     static private func getFont(name: String = "Marker Felt", size: CGFloat = 1) -> Font {
-        Font.custom(name, size: CommonProperties.shared.getMin(of: 5) * size)
+        Font.custom(name, size: CommonProperties.size.getMin(of: 5) * size)
     }
 }
