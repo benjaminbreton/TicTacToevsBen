@@ -186,6 +186,8 @@ struct AI {
                 } else if playerDecisions[1].isCenter {
                     // if a corner and the center have been chosen, choose a corner
                     choices = freeCorners
+                } else {
+                    choices = [playerDecisions[0].oppositeBox]
                 }
             } else if playerDecisions[0].isCenter {
                 if playerDecisions[1].isCorner {

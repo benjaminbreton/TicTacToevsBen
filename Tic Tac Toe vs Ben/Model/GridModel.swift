@@ -65,9 +65,13 @@ struct GridModel {
             print(box.currentRotation)
         }
         if boxHasBeenChoosen {
-            for box in GridBox.allCases {
+            for index in 0..<GridBox.allCases.count {
+                let box = GridBox.allCases[index]
                 if box.currentRotation == 90 || box.currentRotation == -90 {
                     playerDidChoose(box)
+                }
+                if index == GridBox.allCases.count - 1 {
+                    boxHasBeenChoosen = false
                 }
             }
             nextPlayer()

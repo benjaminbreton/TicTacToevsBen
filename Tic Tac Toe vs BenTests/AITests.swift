@@ -116,24 +116,24 @@ class AITests: XCTestCase {
     func testGivenPlayerBeganAndFirstChoiceIsCornerSecondIsCornerWhenAiHasToPlayThenItChoosedMiddleCorner() throws {
         let aiViewModel = AIViewModel()
         let gridViewModel = GridViewModel(beginner: .player)
-        choose(.box11, viewModel: gridViewModel)
+        choose(.box00, viewModel: gridViewModel)
         let box1 = try aiPlays(aiViewModel: aiViewModel, gridViewModel: gridViewModel)
         let boxToPlay = GridBox.allCases.compactMap({ $0.isCorner && $0.owner == .none ? $0 : nil })[0]
         choose(boxToPlay, viewModel: gridViewModel)
         let box2 = try aiPlays(aiViewModel: aiViewModel, gridViewModel: gridViewModel)
-        XCTAssert(box1.isCorner)
+        XCTAssert(box1.isCenter)
         XCTAssert(box2.isMiddleCorner)
     }
-    func testGivenPlayerBeganAndFirstChoiceIsCornerSecondIsMiddleCornerWhenAiHasToPlayThenItChoosedMiddleCorner() throws {
+    func testGivenPlayerBeganAndFirstChoiceIsCornerSecondIsMiddleCornerWhenAiHasToPlayThenItChoosedACorner() throws {
         let aiViewModel = AIViewModel()
         let gridViewModel = GridViewModel(beginner: .player)
-        choose(.box11, viewModel: gridViewModel)
+        choose(.box00, viewModel: gridViewModel)
         let box1 = try aiPlays(aiViewModel: aiViewModel, gridViewModel: gridViewModel)
-        let boxToPlay = GridBox.allCases.compactMap({ $0.isCorner && $0.owner == .none ? $0 : nil })[0]
+        let boxToPlay = GridBox.allCases.compactMap({ $0.isMiddleCorner && $0.owner == .none ? $0 : nil })[0]
         choose(boxToPlay, viewModel: gridViewModel)
         let box2 = try aiPlays(aiViewModel: aiViewModel, gridViewModel: gridViewModel)
-        XCTAssert(box1.isCorner)
-        XCTAssert(box2.isMiddleCorner)
+        XCTAssert(box1.isCenter)
+        XCTAssert(box2.isCorner)
     }
     
     
