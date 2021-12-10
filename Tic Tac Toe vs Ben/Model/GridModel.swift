@@ -10,10 +10,13 @@ struct GridModel {
     
     // MARK: - Saved properties
     
+    /// The player who began the round.
     @UserDefault("beginner", defaultValue: 2)
     private var beginner: Int
+    /// The next player to play.
     @UserDefault("currentPlayer", defaultValue: 2)
     private var currentPlayerInt: Int
+    /// A boolean indicating whether a box has been choosen, or not.
     @UserDefault("boxHasBeenChoosen", defaultValue: false)
     private(set) var boxHasBeenChoosen: Bool
     
@@ -78,9 +81,8 @@ struct GridModel {
      */
     mutating func reset() {
         resetButtonHasBeenHitten = true
-        for var box in GridBox.allCases {
-            box.owner = .none
-            box.currentRotation = 0
+        for box in GridBox.allCases {
+            resetBoxUserDefaults(box)
         }
         beginner = Player.getFromInt(beginner).switchPlayer.int
         currentPlayerInt = beginner
@@ -96,9 +98,7 @@ struct GridModel {
      */
     mutating func playerDidChoose(_ gridBox: GridBox) {
         if !resetButtonHasBeenHitten {
-            var box = gridBox
-            box.owner = currentPlayer
-            box.currentRotation = currentPlayer.rotation180
+            setBoxUserDefaults(gridBox)
             currentPlayerInt = currentPlayer.switchPlayer.int
             boxHasBeenChoosen = false
         }
@@ -147,12 +147,26 @@ struct GridModel {
      Force the player to wait before the next move.
      */
     mutating func boxButtonHasBeenHitten(_ box: GridBox) {
-        var gridBox = box
-        gridBox.currentRotation = currentPlayer.rotation90
+        setBoxUserDefaults(box)
         self.boxHasBeenChoosen = true
         self.resetButtonHasBeenHitten = false
     }
     
+    private func resetBoxUserDefaults(_ box: GridBox) {
+        setUserDefault("boxOwner\(box.row)\(box.col)", value: 0)
+        setUserDefault("boxRotation\(box.row)\(box.col)", value: 0)
+    }
+    private func setBoxUserDefaults(_ box: GridBox) {
+        if box.currentRotation == 0 {
+            setUserDefault("boxRotation\(box.row)\(box.col)", value: currentPlayer.rotation90)
+        } else {
+            setUserDefault("boxOwner\(box.row)\(box.col)", value: currentPlayerInt)
+            setUserDefault("boxRotation\(box.row)\(box.col)", value: currentPlayer.rotation180)
+        }
+    }
+    private func setUserDefault<Value>(_ name: String, value: Value) {
+        UserDefaults.standard.setValue(value, forKey: name)
+    }
     
 }
 

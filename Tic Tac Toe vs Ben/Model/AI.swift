@@ -150,7 +150,7 @@ struct AI {
                 choices = freeCorners
             } else {
                 // else, choose the center box
-                choices = [.boxB2]
+                choices = [.box11]
             }
         }
         // if no choice has been made, pick a free box
@@ -175,7 +175,7 @@ struct AI {
                 choices = freeCorners
             } else {
                 // else, choose the center
-                choices = [.boxB2]
+                choices = [.box11]
             }
         } else if occupiedBoxesCount == 3 {
             // the player has made two moves
