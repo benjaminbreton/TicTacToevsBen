@@ -21,8 +21,8 @@ class Tic_Tac_Toe_vs_BenTests: XCTestCase {
     }
 
     func testGivenNewGameBeginsWhenAIHasToBeginThenAIIsCurrentPlayer() throws {
-        let vm = GridViewModel(beginner: .me)
-        XCTAssert(vm.currentPlayer == .me)
+        let vm = GridViewModel(beginner: .ai)
+        XCTAssert(vm.currentPlayer == .ai)
     }
     func testGivenNewGameBeginsWhenPlayerHasToBeginThenPlayerIsCurrentPlayer() throws {
         let vm = GridViewModel(beginner: .player)

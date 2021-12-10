@@ -36,7 +36,7 @@ class GridViewModel: ObservableObject {
     init(beginner: Player? = nil) {
         self.model = GridModel(beginner: beginner)
         aiHasToPlay = false
-        if model.currentPlayer == .me {
+        if model.currentPlayer == .ai {
             aiHasToPlay = true
         }
         
@@ -54,7 +54,7 @@ class GridViewModel: ObservableObject {
     }
     func nextPlayer() {
         model.nextPlayer()
-        if currentPlayer == .me {
+        if currentPlayer == .ai {
             aiHasToPlay = true
         }
     }

@@ -10,14 +10,14 @@ enum Player: CaseIterable {
     
     // MARK: - Cases
     
-    case me, player, none
+    case ai, player, none
     
     // MARK: - Properties for saving
     
     /// Int reprensenting the case.
     var int: Int {
         switch self {
-        case .me:
+        case .ai:
             return 1
         case .player:
             return 2
@@ -31,7 +31,7 @@ enum Player: CaseIterable {
     /// Text to display when the player has top play.
     var text: String {
         switch self {
-        case .me:
+        case .ai:
             return "à moi"
         case .player:
             return "à toi"
@@ -42,7 +42,7 @@ enum Player: CaseIterable {
     /// Text to display when the player is victorious.
     var winMessage: String {
         switch self {
-        case .me:
+        case .ai:
             return "j'ai gagné, désolé..."
         default:
             return "vous avez gagné ! Bravo !"
@@ -51,7 +51,7 @@ enum Player: CaseIterable {
     /// Box first rotation when it has been hitten.
     var rotation90: Double {
         switch self {
-        case .me:
+        case .ai:
             return -90
         case .player:
             return 90
@@ -62,7 +62,7 @@ enum Player: CaseIterable {
     /// Box second rotation when it has been hitten.
     var rotation180: Double {
         switch self {
-        case .me:
+        case .ai:
             return -180
         case .player:
             return 180
@@ -73,7 +73,7 @@ enum Player: CaseIterable {
     /// The symbol to display in a box.
     var symbol: String {
         switch self {
-        case .me:
+        case .ai:
             return "x"
         case .player:
             return "o"
@@ -84,7 +84,7 @@ enum Player: CaseIterable {
     /// The player's color's name.
     var colorName: String {
         switch self {
-        case .me:
+        case .ai:
             return "AppRed"
         case .player:
             return "AppGreen"
@@ -99,7 +99,7 @@ enum Player: CaseIterable {
     var switchPlayer: Player {
         switch self {
         case .player:
-            return .me
+            return .ai
         default:
             return .player
         }

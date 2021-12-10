@@ -28,13 +28,13 @@ struct BoxView: View {
                 .stroke()
                 .foregroundColor(Color(owner.colorName))
         }
-        .inButton(isDisabled: owner.int != 0 || isDisabled || gridViewModel.hasToWait || gridViewModel.currentPlayer == .me, action: hit)
+        .inButton(isDisabled: owner.int != 0 || isDisabled || gridViewModel.hasToWait || gridViewModel.currentPlayer == .ai, action: hit)
         .rotation3DEffect(
             .degrees(box.currentRotation),
             axis: (x: 0.0, y: 1.0, z: 0.0))
         .animation(.linear(duration: 0.5))
         .onReceive(timer, perform: { _ in
-            if gridViewModel.currentPlayer == .me, let decision = aiViewModel.decision, decision == box, !gridViewModel.boxHasBeenChoosen {
+            if gridViewModel.currentPlayer == .ai, let decision = aiViewModel.decision, decision == box, !gridViewModel.boxHasBeenChoosen {
                 aiViewModel.reset()
                 hit()
             }

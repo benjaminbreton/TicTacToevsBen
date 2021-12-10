@@ -17,7 +17,7 @@ struct AI {
     
     /// All decisions made by the AI during this game.
     private var allDecisions: [GridBox] {
-        GridBox.allCases.compactMap({ $0.owner == .me ? $0 : nil })
+        GridBox.allCases.compactMap({ $0.owner == .ai ? $0 : nil })
     }
     /// Decisions made by the player.
     private var playerDecisions: [GridBox] {
@@ -60,7 +60,7 @@ struct AI {
     mutating func decide() {
         //self.grid = grid
         // check if AI can win with 1 move and eventually use it
-        if let victoriousBox = searchForVictoriousBox(for: .me) {
+        if let victoriousBox = searchForVictoriousBox(for: .ai) {
             self.decision = victoriousBox
         // check if player can win with 1 move and eventually impeach it
         } else if let victoriousBox = searchForVictoriousBox(for: .player) {
@@ -124,7 +124,7 @@ struct AI {
          In this method, AI will check all the lines containing the box entered in parameter to determinate if he can get two lines by playing this box.
          */
         let linesContainingTheBox = gridBox.gridLines
-        let boxOwnedInTheLines = linesContainingTheBox.map({ $0.gridBoxes.map({ $0.owner == .me ? 1 : $0.owner == .player ? -3 : 0 }).reduce(0, +) })
+        let boxOwnedInTheLines = linesContainingTheBox.map({ $0.gridBoxes.map({ $0.owner == .ai ? 1 : $0.owner == .player ? -3 : 0 }).reduce(0, +) })
         // for each line, if the result is 1, the AI can get a line; otherwise, he can't
         let numberOfLines = boxOwnedInTheLines.map({ $0 == 1 ? 1 : 0 }).reduce(0, +)
         return numberOfLines > 1

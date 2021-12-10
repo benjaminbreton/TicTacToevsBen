@@ -129,7 +129,7 @@ struct GridModel {
      - returns: The victorious player.
      */
     mutating private func getVictoriousPlayer() -> Player? {
-        let players: [Player] = [.me, .player]
+        let players: [Player] = [.ai, .player]
         for player in players {
             for line in GridLine.allCases {
                 if line.gridBoxes.map({ $0.owner == player ? 1 : 0 }).reduce(0, +) == 3 {

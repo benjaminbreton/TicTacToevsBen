@@ -27,7 +27,7 @@ struct ContentView: View {
         .environmentObject(gridViewModel)
         .environmentObject(aiViewModel)
         .onReceive(gridViewModel.$aiHasToPlay, perform: { hasToPlay in
-            if gridViewModel.currentPlayer == .me, !aiViewModel.decisionInProgress, hasToPlay {
+            if gridViewModel.currentPlayer == .ai, !aiViewModel.decisionInProgress, hasToPlay {
                 gridViewModel.aiIsPlaying()
                 aiViewModel.play()
             }
@@ -37,7 +37,7 @@ struct ContentView: View {
         aiViewModel.reset()
         gridViewModel.reset()
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            if gridViewModel.currentPlayer == .me {
+            if gridViewModel.currentPlayer == .ai {
                 aiViewModel.play()
             }
         }

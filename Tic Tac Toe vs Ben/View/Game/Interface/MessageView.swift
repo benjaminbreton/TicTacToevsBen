@@ -24,7 +24,7 @@ struct MessageView: View {
             VStack {
                 Group {
                     if let player = gridViewModel.victoriousPlayer {
-                        Text("\(player == .me ? "J'ai gagné. Désolé." : "Tu as gagné, bravo !")")
+                        Text("\(player == .ai ? "J'ai gagné. Désolé." : "Tu as gagné, bravo !")")
                     } else {
                         Text("Match nul.")
                     }
