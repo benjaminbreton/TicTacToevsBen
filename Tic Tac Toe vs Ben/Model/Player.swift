@@ -26,28 +26,8 @@ enum Player: CaseIterable {
         }
     }
     
-    // MARK: - Displayed properties
+    // MARK: - Rotation values
     
-    /// Text to display when the player has top play.
-    var text: String {
-        switch self {
-        case .ai:
-            return "à moi"
-        case .player:
-            return "à toi"
-        case .none:
-            return ""
-        }
-    }
-    /// Text to display when the player is victorious.
-    var winMessage: String {
-        switch self {
-        case .ai:
-            return "j'ai gagné, désolé..."
-        default:
-            return "vous avez gagné ! Bravo !"
-        }
-    }
     /// Box first rotation when it has been hitten.
     var rotation90: Double {
         switch self {
@@ -68,28 +48,6 @@ enum Player: CaseIterable {
             return 180
         case .none:
             return 0
-        }
-    }
-    /// The symbol to display in a box.
-    var symbol: String {
-        switch self {
-        case .ai:
-            return "x"
-        case .player:
-            return "o"
-        case .none:
-            return ""
-        }
-    }
-    /// The player's color's name.
-    var colorName: String {
-        switch self {
-        case .ai:
-            return "AppRed"
-        case .player:
-            return "AppGreen"
-        case .none:
-            return "AppBlack"
         }
     }
     

@@ -15,6 +15,20 @@ struct GridView: View {
     }
     private var gridSize: CGFloat { CommonProperties.size.getMin(of: 82) }
     private let reset: () -> Void
+    private var color: Color {
+        if let player = gridViewModel.victoriousPlayer {
+            return player.color
+        }
+        return gridViewModel.currentPlayer.color
+    }
+    private var message: String {
+        if let player = gridViewModel.victoriousPlayer {
+            return player.winMessage
+        } else if gridViewModel.canContinue {
+            return gridViewModel.currentPlayer.text
+        }
+        return "match nul"
+    }
     init(reset: @escaping () -> Void) {
         self.reset = reset
     }
@@ -34,8 +48,8 @@ struct GridView: View {
                 VictoriousLineView()
             }
             .frame(width: gridSize, height: gridSize)
-            Text(gridViewModel.gridMessage)
-                .inRoundedRectangle(color: Color(gridViewModel.gridColorName))
+            Text(message)
+                .inRoundedRectangle(color: color)
                 .frame(height: CommonProperties.size.getMin(of: 5))
                 .padding()
             Text(isGridDisabled ? "Continuer" : "Reset")

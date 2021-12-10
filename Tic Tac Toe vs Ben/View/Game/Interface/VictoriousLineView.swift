@@ -26,7 +26,7 @@ struct VictoriousLineView: View {
                     VictoriousLineShape(line)
                         .stroke(lineWidth: CommonProperties.size.getMin(of: 1))
                 }
-                .foregroundColor(Color(player.colorName))
+                .foregroundColor(player.color)
                 
             }
         }

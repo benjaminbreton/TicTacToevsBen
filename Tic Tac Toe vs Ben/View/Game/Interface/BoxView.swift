@@ -21,12 +21,12 @@ struct BoxView: View {
     var body: some View {
         ZStack {
             RoundedRectangle()
-                .foregroundColor(Color(owner.colorName))
+                .foregroundColor(owner.color)
                 .opacity(0.3)
-            SymbolView(owner.symbol)
+            owner.symbol
             RoundedRectangle()
                 .stroke()
-                .foregroundColor(Color(owner.colorName))
+                .foregroundColor(owner.color)
         }
         .inButton(isDisabled: owner.int != 0 || isDisabled || gridViewModel.hasToWait || gridViewModel.currentPlayer == .ai, action: hit)
         .rotation3DEffect(

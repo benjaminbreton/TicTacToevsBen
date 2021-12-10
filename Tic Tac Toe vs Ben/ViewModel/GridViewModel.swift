@@ -19,20 +19,6 @@ class GridViewModel: ObservableObject {
     var hasToWait: Bool { model.hasToWait }
     var resetButtonHasBeenHitten: Bool { model.resetButtonHasBeenHitten }
     var boxHasBeenChoosen: Bool { model.boxHasBeenChoosen }
-    var gridMessage: String {
-        if let player = victoriousPlayer {
-            return player.winMessage
-        } else if canContinue {
-            return currentPlayer.text
-        }
-        return "match nul"
-    }
-    var gridColorName: String {
-        if let player = victoriousPlayer {
-            return player.colorName
-        }
-        return currentPlayer.colorName
-    }
     init(beginner: Player? = nil) {
         self.model = GridModel(beginner: beginner)
         aiHasToPlay = false
