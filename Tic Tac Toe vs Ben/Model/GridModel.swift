@@ -14,6 +14,8 @@ struct GridModel {
     private var beginner: Int
     @UserDefault("currentPlayer", defaultValue: 2)
     private var currentPlayerInt: Int
+    @UserDefault("boxHasBeenChoosen", defaultValue: false)
+    private(set) var boxHasBeenChoosen: Bool
     
     // MARK: - Setted properties
     
@@ -22,7 +24,7 @@ struct GridModel {
     /// The line made by the victorious player.
     private(set) var victoriousLine: GridLine? = nil
     /// Boolean indicating whether the player has to wait before choosing a box, or not.
-    private(set) var hasToWait: Bool = false
+    var hasToWait: Bool { boxHasBeenChoosen }
     /// The current player.
     private(set) var currentPlayer: Player
     /// Boolean indicating whether the reset button has been hitten or not.
@@ -56,6 +58,19 @@ struct GridModel {
             self.beginner = beginner.switchPlayer.int
             reset()
         }
+        for box in GridBox.allCases {
+            print(box.currentRotation)
+        }
+        if boxHasBeenChoosen {
+            print("ok")
+            for box in GridBox.allCases {
+                if box.currentRotation == 90 || box.currentRotation == -90 {
+                    print("ok2")
+                    playerDidChoose(box)
+                }
+            }
+            nextPlayer()
+        }
     }
     
     // MARK: - Reset
@@ -64,17 +79,19 @@ struct GridModel {
      Reset all properties to begin a new round.
      */
     mutating func reset() {
-        resetButtonHasBeenHitten = true
-        for var box in GridBox.allCases {
-            box.owner = .none
-            box.currentRotation = 0
-        }
-        beginner = Player.getFromInt(beginner).switchPlayer.int
-        currentPlayerInt = beginner
-        currentPlayer = Player.getFromInt(currentPlayerInt)
-        victoriousPlayer = nil
-        victoriousLine = nil
-        hasToWait = false
+        //if !boxHasBeenChoosen {
+            resetButtonHasBeenHitten = true
+        boxHasBeenChoosen = false
+            for var box in GridBox.allCases {
+                box.owner = .none
+                box.currentRotation = 0
+            }
+            beginner = Player.getFromInt(beginner).switchPlayer.int
+            currentPlayerInt = beginner
+            currentPlayer = Player.getFromInt(currentPlayerInt)
+            victoriousPlayer = nil
+            victoriousLine = nil
+        //}
     }
     
     // MARK: - Player did choose
@@ -87,8 +104,8 @@ struct GridModel {
             var box = gridBox
             box.owner = currentPlayer
             box.currentRotation = currentPlayer.rotation180
-            hasToWait = true
             currentPlayerInt = currentPlayer.switchPlayer.int
+            boxHasBeenChoosen = false
         }
     }
     
@@ -110,7 +127,6 @@ struct GridModel {
                 currentPlayerInt = 0
             }
             currentPlayer = Player.getFromInt(currentPlayerInt)
-            hasToWait = false
         }
     }
     /**
@@ -136,10 +152,10 @@ struct GridModel {
      Force the player to wait before the next move.
      */
     mutating func boxButtonHasBeenHitten(_ box: GridBox) {
-        self.resetButtonHasBeenHitten = false
-        self.hasToWait = true
         var gridBox = box
         gridBox.currentRotation = currentPlayer.rotation90
+        self.boxHasBeenChoosen = true
+        self.resetButtonHasBeenHitten = false
     }
     
     

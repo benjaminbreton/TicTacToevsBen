@@ -14,11 +14,9 @@ struct BoxView: View {
     private var owner: Player { box.owner }
     private let isDisabled: Bool
     @State private var timer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
-    @Binding private var boxHasBeenChoosen: Bool
-    init(_ box: GridBox, isDisabled: Bool, boxHasBeenChoosen: Binding<Bool>) {
+    init(_ box: GridBox, isDisabled: Bool) {
         self.box = box
         self.isDisabled = isDisabled
-        self._boxHasBeenChoosen = boxHasBeenChoosen
     }
     var body: some View {
         ZStack {
@@ -36,7 +34,7 @@ struct BoxView: View {
             axis: (x: 0.0, y: 1.0, z: 0.0))
         .animation(.linear(duration: 0.5))
         .onReceive(timer, perform: { _ in
-            if gridViewModel.currentPlayer == .me, let decision = aiViewModel.decision, decision == box, !boxHasBeenChoosen {
+            if gridViewModel.currentPlayer == .me, let decision = aiViewModel.decision, decision == box, !gridViewModel.boxHasBeenChoosen {
                 aiViewModel.reset()
                 hit()
             }
@@ -44,7 +42,6 @@ struct BoxView: View {
     }
     private func hit() {
         if gridViewModel.victoriousPlayer == nil {
-            boxHasBeenChoosen = true
             aiViewModel.reset()
             gridViewModel.boxButtonHasBeenHitten(box)
             waitForAction(.sendChoice)
@@ -63,7 +60,6 @@ struct BoxView: View {
                 }
             case .endRound:
                 if !gridViewModel.resetButtonHasBeenHitten {
-                    boxHasBeenChoosen = false
                     gridViewModel.nextPlayer()
                 }
             }

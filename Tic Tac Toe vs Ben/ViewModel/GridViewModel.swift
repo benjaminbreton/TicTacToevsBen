@@ -8,7 +8,9 @@
 import Foundation
 class GridViewModel: ObservableObject {
     @Published private var model: GridModel
+    
     @Published private(set) var aiHasToPlay: Bool
+    
     var grid: [[GridBox]] { model.grid }
     var canContinue: Bool { model.canContinue }
     var currentPlayer: Player { model.currentPlayer }
@@ -16,6 +18,7 @@ class GridViewModel: ObservableObject {
     var victoriousLine: GridLine? { model.victoriousLine }
     var hasToWait: Bool { model.hasToWait }
     var resetButtonHasBeenHitten: Bool { model.resetButtonHasBeenHitten }
+    var boxHasBeenChoosen: Bool { model.boxHasBeenChoosen }
     var gridMessage: String {
         if let player = victoriousPlayer {
             return player.winMessage
@@ -36,6 +39,7 @@ class GridViewModel: ObservableObject {
         if model.currentPlayer == .me {
             aiHasToPlay = true
         }
+        
     }
     
     func playerDidChoose(_ gridBox: GridBox) {

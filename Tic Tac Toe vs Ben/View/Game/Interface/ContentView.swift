@@ -13,7 +13,6 @@ struct ContentView: View {
     var isGridDisabled: Bool {
         !gridViewModel.canContinue || gridViewModel.victoriousPlayer != nil
     }
-    @State private var boxHasBeenChoosen: Bool = false
     init() {
         self.gridViewModel = GridViewModel()
         self.aiViewModel = AIViewModel()
@@ -22,7 +21,7 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             Color.appWhite
-            GridView(boxHasBeenChoosen: $boxHasBeenChoosen, reset: reset)
+            GridView(reset: reset)
         }
         .font(.appRegular)
         .environmentObject(gridViewModel)

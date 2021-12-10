@@ -15,10 +15,8 @@ struct GridView: View {
     }
     private var gridSize: CGFloat { CommonProperties.size.getMin(of: 82) }
     private let reset: () -> Void
-    @Binding private var boxHasBeenChoosen: Bool
-    init(boxHasBeenChoosen: Binding<Bool>, reset: @escaping () -> Void) {
+    init(reset: @escaping () -> Void) {
         self.reset = reset
-        self._boxHasBeenChoosen = boxHasBeenChoosen
     }
     var body: some View {
         VStack {
@@ -30,7 +28,7 @@ struct GridView: View {
             ZStack {
                 VStack(spacing: CommonProperties.size.getMin(of: 1)) {
                     ForEach(0..<gridViewModel.grid.count) { index in
-                        RowView(gridViewModel.grid[index], isDisabled: isGridDisabled, boxHasBeenChoosen: $boxHasBeenChoosen)
+                        RowView(gridViewModel.grid[index], isDisabled: isGridDisabled)
                     }
                 }
                 VictoriousLineView()
