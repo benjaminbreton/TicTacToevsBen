@@ -67,6 +67,7 @@ struct GridModel {
         resetButtonHasBeenHitten = true
         for var box in GridBox.allCases {
             box.owner = .none
+            box.currentRotation = 0
         }
         beginner = Player.getFromInt(beginner).switchPlayer.int
         currentPlayerInt = beginner
@@ -85,6 +86,7 @@ struct GridModel {
         if !resetButtonHasBeenHitten {
             var box = gridBox
             box.owner = currentPlayer
+            box.currentRotation = currentPlayer.rotation180
             hasToWait = true
             currentPlayerInt = currentPlayer.switchPlayer.int
         }
@@ -133,9 +135,11 @@ struct GridModel {
     /**
      Force the player to wait before the next move.
      */
-    mutating func forceWaiting() {
+    mutating func boxButtonHasBeenHitten(_ box: GridBox) {
         self.resetButtonHasBeenHitten = false
         self.hasToWait = true
+        var gridBox = box
+        gridBox.currentRotation = currentPlayer.rotation90
     }
     
     

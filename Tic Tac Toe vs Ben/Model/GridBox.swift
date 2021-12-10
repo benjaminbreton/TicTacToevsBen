@@ -29,11 +29,25 @@ enum GridBox: CaseIterable {
     /// Property used to save the owner in UserDefaults.
     private var savedValue: Int {
         get {
-            UserDefaults.standard.object(forKey: "box\(row)\(col)") as? Int ?? 0
+            getUserDefault("box\(row)\(col)", defaultValue: 0)
         }
         set {
-            UserDefaults.standard.setValue(newValue, forKey: "box\(row)\(col)")
+            setUserDefault("box\(row)\(col)", value: newValue)
         }
+    }
+    var currentRotation: Double {
+        get {
+            getUserDefault("rotation\(row)\(col)", defaultValue: 0)
+        }
+        set {
+            setUserDefault("rotation\(row)\(col)", value: newValue)
+        }
+    }
+    private func getUserDefault<Type>(_ name: String, defaultValue: Type) -> Type {
+        UserDefaults.standard.object(forKey: name) as? Type ?? defaultValue
+    }
+    private func setUserDefault<Type>(_ name: String, value: Type) {
+        UserDefaults.standard.setValue(value, forKey: name)
     }
     
     // MARK: - Rows

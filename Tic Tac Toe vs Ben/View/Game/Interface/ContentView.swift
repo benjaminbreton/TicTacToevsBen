@@ -13,7 +13,6 @@ struct ContentView: View {
     var isGridDisabled: Bool {
         !gridViewModel.canContinue || gridViewModel.victoriousPlayer != nil
     }
-    @State private var rotationDegrees: [[Double]] = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     @State private var boxHasBeenChoosen: Bool = false
     init() {
         self.gridViewModel = GridViewModel()
@@ -23,7 +22,7 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             Color.appWhite
-            GridView(rotationDegrees: $rotationDegrees, boxHasBeenChoosen: $boxHasBeenChoosen, reset: reset)
+            GridView(boxHasBeenChoosen: $boxHasBeenChoosen, reset: reset)
         }
         .font(.appRegular)
         .environmentObject(gridViewModel)
@@ -38,7 +37,6 @@ struct ContentView: View {
     private func reset() {
         aiViewModel.reset()
         gridViewModel.reset()
-        rotationDegrees = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             if gridViewModel.currentPlayer == .me {
                 aiViewModel.play()

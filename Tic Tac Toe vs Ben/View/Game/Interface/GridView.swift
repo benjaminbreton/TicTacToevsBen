@@ -13,12 +13,10 @@ struct GridView: View {
     var isGridDisabled: Bool {
         !gridViewModel.canContinue || gridViewModel.victoriousPlayer != nil
     }
-    @Binding private var rotationDegrees: [[Double]]
     private var gridSize: CGFloat { CommonProperties.size.getMin(of: 82) }
     private let reset: () -> Void
     @Binding private var boxHasBeenChoosen: Bool
-    init(rotationDegrees: Binding<[[Double]]>, boxHasBeenChoosen: Binding<Bool>, reset: @escaping () -> Void) {
-        self._rotationDegrees = rotationDegrees
+    init(boxHasBeenChoosen: Binding<Bool>, reset: @escaping () -> Void) {
         self.reset = reset
         self._boxHasBeenChoosen = boxHasBeenChoosen
     }
@@ -32,7 +30,7 @@ struct GridView: View {
             ZStack {
                 VStack(spacing: CommonProperties.size.getMin(of: 1)) {
                     ForEach(0..<gridViewModel.grid.count) { index in
-                        RowView(gridViewModel.grid[index], isDisabled: isGridDisabled, rotationDegrees: $rotationDegrees[index], boxHasBeenChoosen: $boxHasBeenChoosen)
+                        RowView(gridViewModel.grid[index], isDisabled: isGridDisabled, boxHasBeenChoosen: $boxHasBeenChoosen)
                     }
                 }
                 VictoriousLineView()

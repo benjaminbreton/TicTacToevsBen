@@ -15,7 +15,7 @@ class GridViewModel: ObservableObject {
     var victoriousPlayer: Player? { model.victoriousPlayer }
     var victoriousLine: GridLine? { model.victoriousLine }
     var hasToWait: Bool { model.hasToWait }
-    
+    var resetButtonHasBeenHitten: Bool { model.resetButtonHasBeenHitten }
     var gridMessage: String {
         if let player = victoriousPlayer {
             return player.winMessage
@@ -45,8 +45,8 @@ class GridViewModel: ObservableObject {
     func reset() {
         model.reset()
     }
-    func boxButtonHasBeenHitten() {
-        model.forceWaiting()
+    func boxButtonHasBeenHitten(_ box: GridBox) {
+        model.boxButtonHasBeenHitten(box)
     }
     func nextPlayer() {
         model.nextPlayer()

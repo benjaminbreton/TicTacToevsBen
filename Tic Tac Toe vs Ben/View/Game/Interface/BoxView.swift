@@ -10,16 +10,14 @@ import SwiftUI
 struct BoxView: View {
     @EnvironmentObject private var gridViewModel: GridViewModel
     @EnvironmentObject private var aiViewModel: AIViewModel
-    @Binding private var rotation3DDegrees: Double
     private let box: GridBox
     private var owner: Player { box.owner }
     private let isDisabled: Bool
     @State private var timer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
     @Binding private var boxHasBeenChoosen: Bool
-    init(_ box: GridBox, isDisabled: Bool, rotationDegrees: Binding<Double>, boxHasBeenChoosen: Binding<Bool>) {
+    init(_ box: GridBox, isDisabled: Bool, boxHasBeenChoosen: Binding<Bool>) {
         self.box = box
         self.isDisabled = isDisabled
-        self._rotation3DDegrees = rotationDegrees
         self._boxHasBeenChoosen = boxHasBeenChoosen
     }
     var body: some View {
@@ -34,7 +32,7 @@ struct BoxView: View {
         }
         .inButton(isDisabled: owner.int != 0 || isDisabled || gridViewModel.hasToWait || gridViewModel.currentPlayer == .me, action: hit)
         .rotation3DEffect(
-            .degrees(rotation3DDegrees),
+            .degrees(box.currentRotation),
             axis: (x: 0.0, y: 1.0, z: 0.0))
         .animation(.linear(duration: 0.5))
         .onReceive(timer, perform: { _ in
@@ -47,8 +45,7 @@ struct BoxView: View {
     private func hit() {
         boxHasBeenChoosen = true
         aiViewModel.reset()
-        gridViewModel.boxButtonHasBeenHitten()
-        rotation3DDegrees = gridViewModel.currentPlayer.rotation90
+        gridViewModel.boxButtonHasBeenHitten(box)
         waitForAction(.sendChoice)
     }
     enum BoxAction {
@@ -58,13 +55,15 @@ struct BoxView: View {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             switch action {
             case .sendChoice:
-                gridViewModel.playerDidChoose(box)
-                rotation3DDegrees = gridViewModel.currentPlayer.rotation180
-                waitForAction(.endRound)
+                if !gridViewModel.resetButtonHasBeenHitten {
+                    gridViewModel.playerDidChoose(box)
+                    waitForAction(.endRound)
+                }
             case .endRound:
-                boxHasBeenChoosen = false
-                gridViewModel.nextPlayer()
-                
+                if !gridViewModel.resetButtonHasBeenHitten {
+                    boxHasBeenChoosen = false
+                    gridViewModel.nextPlayer()
+                }
             }
         }
     }
