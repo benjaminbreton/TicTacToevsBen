@@ -25,6 +25,8 @@ struct GridModel {
     private(set) var hasToWait: Bool = false
     /// The current player.
     private(set) var currentPlayer: Player
+    /// Boolean indicating whether the reset button has been hitten or not.
+    private(set) var resetButtonHasBeenHitten: Bool = false
     
     // MARK: - Computed properties
     
@@ -62,6 +64,7 @@ struct GridModel {
      Reset all properties to begin a new round.
      */
     mutating func reset() {
+        resetButtonHasBeenHitten = true
         for var box in GridBox.allCases {
             box.owner = .none
         }
@@ -79,10 +82,12 @@ struct GridModel {
      Performs actions regarding the box choosed by the player.
      */
     mutating func playerDidChoose(_ gridBox: GridBox) {
-        var box = gridBox
-        box.owner = currentPlayer
-        hasToWait = true
-        currentPlayerInt = currentPlayer.switchPlayer.int
+        if !resetButtonHasBeenHitten {
+            var box = gridBox
+            box.owner = currentPlayer
+            hasToWait = true
+            currentPlayerInt = currentPlayer.switchPlayer.int
+        }
     }
     
     // MARK: - Next player
@@ -91,18 +96,20 @@ struct GridModel {
      Verify victory conditions and prepare the game for the next move.
      */
     mutating func nextPlayer() {
-        // check if a player won
-        if let victoriousPlayer = getVictoriousPlayer() {
-            self.victoriousPlayer = victoriousPlayer
-            self.currentPlayerInt = 0
-            return
+        if !resetButtonHasBeenHitten {
+            // check if a player won
+            if let victoriousPlayer = getVictoriousPlayer() {
+                self.victoriousPlayer = victoriousPlayer
+                self.currentPlayerInt = 0
+                return
+            }
+            // otherwise check if the round can continue
+            if !canContinue {
+                currentPlayerInt = 0
+            }
+            currentPlayer = Player.getFromInt(currentPlayerInt)
+            hasToWait = false
         }
-        // otherwise check if the round can continue
-        if !canContinue {
-            currentPlayerInt = 0
-        }
-        currentPlayer = Player.getFromInt(currentPlayerInt)
-        hasToWait = false
     }
     /**
      Verify if a player won and eventually returns it.
@@ -127,6 +134,7 @@ struct GridModel {
      Force the player to wait before the next move.
      */
     mutating func forceWaiting() {
+        self.resetButtonHasBeenHitten = false
         self.hasToWait = true
     }
     

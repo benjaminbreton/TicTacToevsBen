@@ -47,7 +47,7 @@ struct BoxView: View {
     private func hit() {
         boxHasBeenChoosen = true
         aiViewModel.reset()
-        gridViewModel.forceWaiting()
+        gridViewModel.boxButtonHasBeenHitten()
         rotation3DDegrees = gridViewModel.currentPlayer.rotation90
         waitForAction(.sendChoice)
     }

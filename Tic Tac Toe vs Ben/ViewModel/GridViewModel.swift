@@ -45,7 +45,7 @@ class GridViewModel: ObservableObject {
     func reset() {
         model.reset()
     }
-    func forceWaiting() {
+    func boxButtonHasBeenHitten() {
         model.forceWaiting()
     }
     func nextPlayer() {
