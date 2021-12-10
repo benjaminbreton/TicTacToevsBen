@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0325F2D127639C3900624EA6 /* AITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0325F2D027639C3900624EA6 /* AITests.swift */; };
 		0345CAF52760B5F90045944F /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0345CAF42760B5F90045944F /* GridView.swift */; };
 		0345CAFA2760B84A0045944F /* InRoundedRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0345CAF92760B84A0045944F /* InRoundedRectangle.swift */; };
 		0345CAFF2760B8710045944F /* Font+appFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0345CAFE2760B8710045944F /* Font+appFont.swift */; };
@@ -58,6 +59,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0325F2D027639C3900624EA6 /* AITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AITests.swift; sourceTree = "<group>"; };
 		0345CAF42760B5F90045944F /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		0345CAF92760B84A0045944F /* InRoundedRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InRoundedRectangle.swift; sourceTree = "<group>"; };
 		0345CAFE2760B8710045944F /* Font+appFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+appFont.swift"; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				03E46CC6275F4B55008C00FF /* GridTests.swift */,
+				0325F2D027639C3900624EA6 /* AITests.swift */,
 				03E46CC8275F4B55008C00FF /* Info.plist */,
 			);
 			path = "Tic Tac Toe vs BenTests";
@@ -441,6 +444,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				03E46CC7275F4B55008C00FF /* GridTests.swift in Sources */,
+				0325F2D127639C3900624EA6 /* AITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
