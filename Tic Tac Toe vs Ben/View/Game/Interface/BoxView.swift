@@ -43,10 +43,12 @@ struct BoxView: View {
         })
     }
     private func hit() {
-        boxHasBeenChoosen = true
-        aiViewModel.reset()
-        gridViewModel.boxButtonHasBeenHitten(box)
-        waitForAction(.sendChoice)
+        if gridViewModel.victoriousPlayer == nil {
+            boxHasBeenChoosen = true
+            aiViewModel.reset()
+            gridViewModel.boxButtonHasBeenHitten(box)
+            waitForAction(.sendChoice)
+        }
     }
     enum BoxAction {
         case sendChoice, endRound
