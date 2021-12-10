@@ -62,10 +62,8 @@ struct GridModel {
             print(box.currentRotation)
         }
         if boxHasBeenChoosen {
-            print("ok")
             for box in GridBox.allCases {
                 if box.currentRotation == 90 || box.currentRotation == -90 {
-                    print("ok2")
                     playerDidChoose(box)
                 }
             }
@@ -79,19 +77,16 @@ struct GridModel {
      Reset all properties to begin a new round.
      */
     mutating func reset() {
-        //if !boxHasBeenChoosen {
-            resetButtonHasBeenHitten = true
-        boxHasBeenChoosen = false
-            for var box in GridBox.allCases {
-                box.owner = .none
-                box.currentRotation = 0
-            }
-            beginner = Player.getFromInt(beginner).switchPlayer.int
-            currentPlayerInt = beginner
-            currentPlayer = Player.getFromInt(currentPlayerInt)
-            victoriousPlayer = nil
-            victoriousLine = nil
-        //}
+        resetButtonHasBeenHitten = true
+        for var box in GridBox.allCases {
+            box.owner = .none
+            box.currentRotation = 0
+        }
+        beginner = Player.getFromInt(beginner).switchPlayer.int
+        currentPlayerInt = beginner
+        currentPlayer = Player.getFromInt(currentPlayerInt)
+        victoriousPlayer = nil
+        victoriousLine = nil
     }
     
     // MARK: - Player did choose
