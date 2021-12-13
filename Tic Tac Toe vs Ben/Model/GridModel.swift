@@ -85,6 +85,7 @@ struct GridModel {
      */
     mutating func reset() {
         resetButtonHasBeenHitten = true
+        boxHasBeenChoosen = false
         for box in GridBox.allCases {
             resetBoxUserDefaults(box)
         }

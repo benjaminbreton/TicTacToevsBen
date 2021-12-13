@@ -191,13 +191,6 @@ class AITests: XCTestCase {
         let aiPossibleLinesCount = GridLine.allCases.map({ $0.gridBoxes.map({ $0.owner == .ai ? 1 : $0.owner == .player ? -3 : 0 }).reduce(0, +) }).map({ $0 == 2 ? 1 : 0 }).reduce(0, +)
         XCTAssert(aiPossibleLinesCount >= 2)
     }
-    /*
-     x|o| |
-      |x| |
-      | |o|
-     */
-    
-    
     
     // MARK: - Supporting methods
     
@@ -226,6 +219,9 @@ class AITests: XCTestCase {
         self.gridViewModel = gridViewModel
         return (grid: gridViewModel, ai: aiViewModel)
     }
-    
+    override func tearDown() {
+        aiViewModel = nil
+        gridViewModel = nil
+    }
 
 }
