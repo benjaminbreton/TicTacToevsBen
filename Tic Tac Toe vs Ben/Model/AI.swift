@@ -17,11 +17,13 @@ struct AI {
     
     /// All decisions made by the AI during this game.
     private var allDecisions: [GridBox] {
-        GridBox.allCases.compactMap({ $0.owner == .ai ? $0 : nil })
+        Player.ai.allDecisions
+        //GridBox.allCases.compactMap({ $0.owner == .ai ? $0 : nil })
     }
     /// Decisions made by the player.
     private var playerDecisions: [GridBox] {
-        GridBox.allCases.compactMap({ $0.owner == .player ? $0 : nil })
+        Player.player.allDecisions
+        //GridBox.allCases.compactMap({ $0.owner == .player ? $0 : nil })
     }
     
     // MARK: - Free boxes
@@ -154,9 +156,7 @@ struct AI {
             }
         }
         // if no choice has been made, pick a free box
-        if choices == [] {
-            choices = freeBoxes
-        }
+        guard !choices.isEmpty else { return freeBoxes[Int.random(in: 0..<freeBoxes.count)] }
         // returns a random box based on choices
         return choices[Int.random(in: 0..<choices.count)]
     }
@@ -183,23 +183,15 @@ struct AI {
                 if playerDecisions[1].isCorner {
                     // if two corners have been chosen, choose a box situated between two corners
                     choices = freeMiddleCorners
-                } else if playerDecisions[1].isCenter {
-                    // if a corner and the center have been chosen, choose a corner
-                    choices = freeCorners
                 } else {
                     choices = [playerDecisions[0].oppositeBox]
                 }
-            } else if playerDecisions[0].isCenter {
-                if playerDecisions[1].isCorner {
-                    // if a corner and the center have been chosen, choose a corner
-                    choices = freeCorners
-                }
+            } else {
+                choices = freeCorners
             }
         }
         // if no choice has been made, pick a free box
-        if choices == [] {
-            choices = freeBoxes
-        }
+        guard !choices.isEmpty else { return freeBoxes[Int.random(in: 0..<freeBoxes.count)] }
         return choices[Int.random(in: 0..<choices.count)]
     }
     

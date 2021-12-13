@@ -9,55 +9,54 @@ import XCTest
 @testable import Tic_Tac_Toe_vs_Ben
 
 class AITests: XCTestCase {
+    
+    private var aiViewModel: AIViewModel?
+    private var gridViewModel: GridViewModel?
 
     // MARK: - AI has to begin
     
     // First Choice
     
     func testAIHasToBeginWhenBeganThenItChoosedACorner() throws {
-        let aiViewModel = AIViewModel()
-        let gridViewModel = GridViewModel(beginner: .ai)
-        XCTAssert(gridViewModel.aiHasToPlay)
-        gridViewModel.aiIsPlaying()
-        XCTAssertFalse(gridViewModel.aiHasToPlay)
-        aiViewModel.play()
-        let decision = try XCTUnwrap(aiViewModel.decision)
+        let viewmodels = createViewModels(beginner: .ai)
+        XCTAssert(viewmodels.grid.aiHasToPlay)
+        viewmodels.grid.aiIsPlaying()
+        XCTAssertFalse(viewmodels.grid.aiHasToPlay)
+        viewmodels.ai.play()
+        let decision = try XCTUnwrap(viewmodels.ai.decision)
         XCTAssert(decision.isCorner)
-        aiViewModel.reset()
-        choose(decision, viewModel: gridViewModel)
-        XCTAssertNil(aiViewModel.decision)
+        viewmodels.ai.reset()
+        try choose(decision)
+        XCTAssertNil(viewmodels.ai.decision)
         XCTAssert(decision.owner == .ai)
     }
     
     // Second choice
     
     func testGivenPlayerFirstChoiceIsCenterWhenAiHasToPlayThenItChoosedTheOppositeCorner() throws {
-        let aiViewModel = AIViewModel()
-        let gridViewModel = GridViewModel(beginner: .ai)
-        let box1 = try aiPlays(aiViewModel: aiViewModel, gridViewModel: gridViewModel)
-        choose(.box11, viewModel: gridViewModel)
-        let box2 = try aiPlays(aiViewModel: aiViewModel, gridViewModel: gridViewModel)
+        createViewModels(beginner: .ai)
+        let box1 = try aiPlays()
+        try choose(.box11)
+        let box2 = try aiPlays()
         XCTAssert(box1.isCorner)
         XCTAssert(box2.isCorner)
         XCTAssert(box2 == box1.oppositeBox)
     }
     func testGivenPlayerFirstChoiceIsCornerWhenAiHasToPlayThenItChoosedAnotherCorner() throws {
-        let aiViewModel = AIViewModel()
-        let gridViewModel = GridViewModel(beginner: .ai)
-        let box1 = try aiPlays(aiViewModel: aiViewModel, gridViewModel: gridViewModel)
+        createViewModels(beginner: .ai)
+        let box1 = try aiPlays()
         let boxToPlay = GridBox.allCases.compactMap({ $0.isCorner && $0.owner == .none ? $0 : nil })[0]
-        choose(boxToPlay, viewModel: gridViewModel)
-        let box2 = try aiPlays(aiViewModel: aiViewModel, gridViewModel: gridViewModel)
+        try choose(boxToPlay)
+        let box2 = try aiPlays()
         XCTAssert(box1.isCorner)
         XCTAssert(box2.isCorner)
     }
     func testGivenPlayerFirstChoiceIsMiddleCornerWhenAiHasToPlayThenItChoosedCenter() throws {
-        let aiViewModel = AIViewModel()
-        let gridViewModel = GridViewModel(beginner: .ai)
-        let box1 = try aiPlays(aiViewModel: aiViewModel, gridViewModel: gridViewModel)
+        createViewModels(beginner: .ai)
+        let box1 = try aiPlays()
         let boxToPlay = GridBox.allCases.compactMap({ $0.isMiddleCorner ? $0 : nil })[0]
-        choose(boxToPlay, viewModel: gridViewModel)
-        let box2 = try aiPlays(aiViewModel: aiViewModel, gridViewModel: gridViewModel)
+        try choose(boxToPlay)
+        let box2 = try aiPlays()
         XCTAssert(box1.isCorner)
         XCTAssert(box2.isCenter)
     }
@@ -67,92 +66,165 @@ class AITests: XCTestCase {
     // first choice
     
     func testGivenPlayerBeganAndFirstChoiceIsCenterWhenAiHasToPlayThenItChoosedCorner() throws {
-        let aiViewModel = AIViewModel()
-        let gridViewModel = GridViewModel(beginner: .player)
-        choose(.box11, viewModel: gridViewModel)
-        let box1 = try aiPlays(aiViewModel: aiViewModel, gridViewModel: gridViewModel)
+        createViewModels(beginner: .player)
+        try choose(.box11)
+        let box1 = try aiPlays()
         XCTAssert(box1.isCorner)
     }
     func testGivenPlayerBeganAndFirstChoiceIsCornerWhenAiHasToPlayThenItChoosedCenter() throws {
-        let aiViewModel = AIViewModel()
-        let gridViewModel = GridViewModel(beginner: .player)
-        choose(.box00, viewModel: gridViewModel)
-        let box1 = try aiPlays(aiViewModel: aiViewModel, gridViewModel: gridViewModel)
+        createViewModels(beginner: .player)
+        try choose(.box00)
+        let box1 = try aiPlays()
         XCTAssert(box1.isCenter)
     }
     func testGivenPlayerBeganAndFirstChoiceIsMiddleCornerWhenAiHasToPlayThenItChoosedCenter() throws {
-        let aiViewModel = AIViewModel()
-        let gridViewModel = GridViewModel(beginner: .player)
-        choose(.box01, viewModel: gridViewModel)
-        let box1 = try aiPlays(aiViewModel: aiViewModel, gridViewModel: gridViewModel)
+        createViewModels(beginner: .player)
+        try choose(.box01)
+        let box1 = try aiPlays()
         XCTAssert(box1.isCenter)
     }
     
     // second choice
     
     func testGivenPlayerBeganAndFirstChoiceIsCenterSecondIsCornerWhenAiHasToPlayThenItChoosedAnotherCorner() throws {
-        let aiViewModel = AIViewModel()
-        let gridViewModel = GridViewModel(beginner: .player)
-        choose(.box11, viewModel: gridViewModel)
-        let box1 = try aiPlays(aiViewModel: aiViewModel, gridViewModel: gridViewModel)
+        createViewModels(beginner: .player)
+        try choose(.box11)
+        let box1 = try aiPlays()
         let boxToPlay = GridBox.allCases.compactMap({ $0.isCorner && $0.owner == .none ? $0 : nil })[0]
-        choose(boxToPlay, viewModel: gridViewModel)
-        let box2 = try aiPlays(aiViewModel: aiViewModel, gridViewModel: gridViewModel)
+        try choose(boxToPlay)
+        let box2 = try aiPlays()
+        XCTAssert(box1.isCorner)
+        XCTAssert(box2.isCorner)
+    }
+    func testGivenPlayerBeganAndFirstChoiceIsCenterSecondIsOtherCornerWhenAiHasToPlayThenItChoosedAnotherCorner() throws {
+        createViewModels(beginner: .player)
+        try choose(.box11)
+        let box1 = try aiPlays()
+        let boxToPlay = GridBox.allCases.compactMap({ $0.isCorner && $0.owner == .none ? $0 : nil })[2]
+        try choose(boxToPlay)
+        let box2 = try aiPlays()
         XCTAssert(box1.isCorner)
         XCTAssert(box2.isCorner)
     }
     func testGivenPlayerBeganAndFirstChoiceIsCenterSecondIsMiddleCornerWhenAiHasToPlayThenItChoosedTheOppositeMiddleCorner() throws {
-        let aiViewModel = AIViewModel()
-        let gridViewModel = GridViewModel(beginner: .player)
-        choose(.box11, viewModel: gridViewModel)
-        let box1 = try aiPlays(aiViewModel: aiViewModel, gridViewModel: gridViewModel)
+        createViewModels(beginner: .player)
+        try choose(.box11)
+        let box1 = try aiPlays()
         let boxToPlay = GridBox.allCases.compactMap({ $0.isMiddleCorner && $0.owner == .none ? $0 : nil })[0]
-        choose(boxToPlay, viewModel: gridViewModel)
-        let box2 = try aiPlays(aiViewModel: aiViewModel, gridViewModel: gridViewModel)
+        try choose(boxToPlay)
+        let box2 = try aiPlays()
         XCTAssert(box1.isCorner)
         XCTAssert(box2.isMiddleCorner)
         XCTAssert(boxToPlay.oppositeBox == box2)
     }
     func testGivenPlayerBeganAndFirstChoiceIsCornerSecondIsCornerWhenAiHasToPlayThenItChoosedMiddleCorner() throws {
-        let aiViewModel = AIViewModel()
-        let gridViewModel = GridViewModel(beginner: .player)
-        choose(.box00, viewModel: gridViewModel)
-        let box1 = try aiPlays(aiViewModel: aiViewModel, gridViewModel: gridViewModel)
+        createViewModels(beginner: .player)
+        try choose(.box00)
+        let box1 = try aiPlays()
         let boxToPlay = GridBox.allCases.compactMap({ $0.isCorner && $0.owner == .none ? $0 : nil })[0]
-        choose(boxToPlay, viewModel: gridViewModel)
-        let box2 = try aiPlays(aiViewModel: aiViewModel, gridViewModel: gridViewModel)
+        try choose(boxToPlay)
+        let box2 = try aiPlays()
         XCTAssert(box1.isCenter)
         XCTAssert(box2.isMiddleCorner)
     }
     func testGivenPlayerBeganAndFirstChoiceIsCornerSecondIsMiddleCornerWhenAiHasToPlayThenItChoosedACorner() throws {
-        let aiViewModel = AIViewModel()
-        let gridViewModel = GridViewModel(beginner: .player)
-        choose(.box00, viewModel: gridViewModel)
-        let box1 = try aiPlays(aiViewModel: aiViewModel, gridViewModel: gridViewModel)
+        createViewModels(beginner: .player)
+        try choose(.box00)
+        let box1 = try aiPlays()
         let boxToPlay = GridBox.allCases.compactMap({ $0.isMiddleCorner && $0.owner == .none ? $0 : nil })[0]
-        choose(boxToPlay, viewModel: gridViewModel)
-        let box2 = try aiPlays(aiViewModel: aiViewModel, gridViewModel: gridViewModel)
+        try choose(boxToPlay)
+        let box2 = try aiPlays()
         XCTAssert(box1.isCenter)
         XCTAssert(box2.isCorner)
     }
+    func testGivenPlayerBeganAndFirstChoiceIsOtherCornerSecondIsCornerWhenAiHasToPlayThenItChoosedMiddleCorner() throws {
+        createViewModels(beginner: .player)
+        try choose(.box22)
+        let box1 = try aiPlays()
+        let boxToPlay = GridBox.allCases.compactMap({ $0.isCorner && $0.owner == .none ? $0 : nil })[0]
+        try choose(boxToPlay)
+        let box2 = try aiPlays()
+        XCTAssert(box1.isCenter)
+        XCTAssert(box2.isMiddleCorner)
+    }
+    func testGivenPlayerBeganAndFirstChoiceIsOtherCornerSecondIsMiddleCornerWhenAiHasToPlayThenItChoosedACorner() throws {
+        createViewModels(beginner: .player)
+        try choose(.box22)
+        let box1 = try aiPlays()
+        let boxToPlay = GridBox.allCases.compactMap({ $0.isMiddleCorner && $0.owner == .none ? $0 : nil })[0]
+        try choose(boxToPlay)
+        let box2 = try aiPlays()
+        XCTAssert(box1.isCenter)
+        XCTAssert(box2.isCorner)
+    }
+    
+    // MARK: - Victory conditions
+    
+    func testGivenAiCanWinWhenItPlaysThenItWins() throws {
+        let viewmodels = createViewModels(beginner: .ai)
+        try aiPlays()
+        try choose(.box10)
+        try aiPlays()
+        try choose(.box12)
+        try aiPlays()
+        XCTAssert(viewmodels.grid.victoriousPlayer == .ai)
+        XCTAssertNotNil(viewmodels.grid.victoriousLine)
+    }
+    func testGivenPlayerCanWinWhenAiPlaysThenItChoosedTheBoxToAvoidPlayerVictory() throws {
+        createViewModels(beginner: .player)
+        try choose(.box00)
+        try aiPlays()
+        try choose(.box10)
+        let box = try aiPlays()
+        XCTAssert(box == .box20)
+    }
+    
+    // MARK: - Trap player
+    
+    func testGivenAiCanTrapThePlayerWhenItPlaysThenItTrapsHim() throws {
+        createViewModels(beginner: .ai)
+        let firstAiBox = try aiPlays()
+        try choose(GridBox.getBox(row: firstAiBox.row, col: 1))
+        try aiPlays()
+        try choose(firstAiBox.oppositeBox)
+        try aiPlays()
+        let aiPossibleLinesCount = GridLine.allCases.map({ $0.gridBoxes.map({ $0.owner == .ai ? 1 : $0.owner == .player ? -3 : 0 }).reduce(0, +) }).map({ $0 == 2 ? 1 : 0 }).reduce(0, +)
+        XCTAssert(aiPossibleLinesCount >= 2)
+    }
+    /*
+     x|o| |
+      |x| |
+      | |o|
+     */
     
     
     
     // MARK: - Supporting methods
     
-    private func choose(_ box: GridBox, viewModel: GridViewModel) {
+    private func choose(_ box: GridBox) throws {
+        let viewModel = try XCTUnwrap(self.gridViewModel)
         viewModel.boxButtonHasBeenHitten(box)
         viewModel.playerDidChoose(box)
         viewModel.nextPlayer()
     }
     @discardableResult
-    private func aiPlays(aiViewModel: AIViewModel, gridViewModel: GridViewModel) throws -> GridBox {
+    private func aiPlays() throws -> GridBox {
+        let aiViewModel = try XCTUnwrap(self.aiViewModel)
+        let gridViewModel = try XCTUnwrap(self.gridViewModel)
         gridViewModel.aiIsPlaying()
         aiViewModel.play()
         let decision = try XCTUnwrap(aiViewModel.decision)
         aiViewModel.reset()
-        choose(decision, viewModel: gridViewModel)
+        try choose(decision)
         return decision
+    }
+    @discardableResult
+    private func createViewModels(beginner: Player) -> (grid: GridViewModel, ai: AIViewModel) {
+        let aiViewModel = AIViewModel()
+        let gridViewModel = GridViewModel(beginner: beginner)
+        self.aiViewModel = aiViewModel
+        self.gridViewModel = gridViewModel
+        return (grid: gridViewModel, ai: aiViewModel)
     }
     
 

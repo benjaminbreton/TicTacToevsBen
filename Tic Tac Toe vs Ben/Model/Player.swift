@@ -63,6 +63,14 @@ enum Player: CaseIterable {
         }
     }
     
+    var allDecisions: [GridBox] {
+        var decisions: [[GridBox]] = []
+        decisions.append(GridBox.box11.owner == self ? [GridBox.box11] : [])
+        decisions.append(GridBox.allCases.compactMap({ $0.isCorner && $0.owner == self ? $0 : nil }))
+        decisions.append(GridBox.allCases.compactMap({ $0.isMiddleCorner && $0.owner == self ? $0 : nil }))
+        return decisions.flatMap({ $0 })
+    }
+    
     // MARK: - Get player
     
     /**
