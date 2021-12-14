@@ -28,7 +28,7 @@ struct BoxView: View {
                 .stroke()
                 .foregroundColor(owner.color)
         }
-        .inButton(isDisabled: owner.int != 0 || isDisabled || gridViewModel.hasToWait || gridViewModel.currentPlayer == .ai, action: hit)
+        .inButton(isDisabled: owner.int != 0 || isDisabled || gridViewModel.hasToWait || gridViewModel.currentPlayer != .player, action: hit)
         .rotation3DEffect(
             .degrees(box.currentRotation),
             axis: (x: 0.0, y: 1.0, z: 0.0))

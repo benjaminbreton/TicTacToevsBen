@@ -19,6 +19,9 @@ struct GridModel {
     /// A boolean indicating whether a box has been choosen, or not.
     @UserDefault("boxHasBeenChoosen", defaultValue: false)
     private(set) var boxHasBeenChoosen: Bool
+    /// A boolean indicating whether players have to wait the next player method to be called before playing or not.
+    @UserDefault("waitForNextPlayer", defaultValue: false)
+    private(set) var waitForNextPlayer: Bool
     
     // MARK: - Setted properties
     
@@ -27,14 +30,13 @@ struct GridModel {
     /// The line made by the victorious player.
     private(set) var victoriousLine: GridLine? = nil
     /// Boolean indicating whether the player has to wait before choosing a box, or not.
-    var hasToWait: Bool { boxHasBeenChoosen }
+    var hasToWait: Bool { boxHasBeenChoosen || waitForNextPlayer }
     /// The current player.
     private(set) var currentPlayer: Player
     /// Boolean indicating whether the reset button has been hitten or not.
     private(set) var resetButtonHasBeenHitten: Bool = false
     
     // MARK: - Computed properties
-    
     
     /// The grid to display.
     var grid: [[GridBox]] {
@@ -64,6 +66,7 @@ struct GridModel {
         for box in GridBox.allCases {
             print(box.currentRotation)
         }
+        waitForNextPlayer = false
         if boxHasBeenChoosen {
             for index in 0..<GridBox.allCases.count {
                 let box = GridBox.allCases[index]
@@ -86,6 +89,7 @@ struct GridModel {
     mutating func reset() {
         resetButtonHasBeenHitten = true
         boxHasBeenChoosen = false
+        waitForNextPlayer = false
         for box in GridBox.allCases {
             resetBoxUserDefaults(box)
         }
@@ -106,6 +110,7 @@ struct GridModel {
             setBoxUserDefaults(gridBox)
             currentPlayerInt = currentPlayer.switchPlayer.int
             boxHasBeenChoosen = false
+            waitForNextPlayer = true
         }
     }
     
@@ -116,6 +121,7 @@ struct GridModel {
      */
     mutating func nextPlayer() {
         if !resetButtonHasBeenHitten {
+            waitForNextPlayer = false
             // check if a player won
             if let victoriousPlayer = getVictoriousPlayer() {
                 self.victoriousPlayer = victoriousPlayer
@@ -157,10 +163,20 @@ struct GridModel {
         self.resetButtonHasBeenHitten = false
     }
     
+    // MARK: - Boxes UserDefaults setter
+    
+    /**
+     Method called to reset all UserDefaults linked to a box.
+     - parameter box: The box for which UserDefaults have to be reseted.
+     */
     private func resetBoxUserDefaults(_ box: GridBox) {
         setUserDefault("boxOwner\(box.row)\(box.col)", value: 0)
         setUserDefault("boxRotation\(box.row)\(box.col)", value: 0)
     }
+    /**
+     Set UserDefaults linked to a box depending on its status.
+     - parameter box: The box for which UserDefaults have to be setted.
+     */
     private func setBoxUserDefaults(_ box: GridBox) {
         if box.currentRotation == 0 {
             setUserDefault("boxRotation\(box.row)\(box.col)", value: currentPlayer.rotation90)
@@ -169,6 +185,11 @@ struct GridModel {
             setUserDefault("boxRotation\(box.row)\(box.col)", value: currentPlayer.rotation180)
         }
     }
+    /**
+     Set an UserDefault.
+     - parameter name: The UserDefault's key's name.
+     - parameter value: The value to set.
+     */
     private func setUserDefault<Value>(_ name: String, value: Value) {
         UserDefaults.standard.setValue(value, forKey: name)
     }

@@ -27,7 +27,7 @@ class GridTests: XCTestCase {
         XCTAssert(vm.boxHasBeenChoosen)
         XCTAssert(vm.hasToWait)
         vm.playerDidChoose(.box00)
-        XCTAssertFalse(vm.hasToWait)
+        XCTAssert(vm.hasToWait)
         vm.nextPlayer()
         XCTAssert(GridBox.box00.owner == .ai)
         XCTAssert(vm.currentPlayer == .player)
