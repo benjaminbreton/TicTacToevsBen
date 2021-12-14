@@ -125,12 +125,14 @@ struct GridModel {
             // check if a player won
             if let victoriousPlayer = getVictoriousPlayer() {
                 self.victoriousPlayer = victoriousPlayer
-                self.currentPlayerInt = 0
+                currentPlayerInt = 0
+                currentPlayer = .none
                 return
             }
             // otherwise check if the round can continue
             if !canContinue {
                 currentPlayerInt = 0
+                currentPlayer = .none
             }
             currentPlayer = Player.getFromInt(currentPlayerInt)
         }

@@ -22,7 +22,9 @@ struct MessageView: View {
         return gridViewModel.currentPlayer.color
     }
     private var message: String {
-        if let player = gridViewModel.victoriousPlayer {
+        if gridViewModel.hasToWait {
+            return ""
+        } else if let player = gridViewModel.victoriousPlayer {
             return player.winMessage
         } else if gridViewModel.canContinue {
             return gridViewModel.currentPlayer.text

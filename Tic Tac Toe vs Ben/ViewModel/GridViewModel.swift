@@ -39,6 +39,7 @@ class GridViewModel: ObservableObject {
         model.boxButtonHasBeenHitten(box)
     }
     func nextPlayer() {
+        print("call")
         model.nextPlayer()
         if currentPlayer == .ai {
             aiHasToPlay = true
