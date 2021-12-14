@@ -17,6 +17,9 @@
 		0345CB1D2760FD010045944F /* Float+cgFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0345CB1C2760FD010045944F /* Float+cgFloat.swift */; };
 		03734B2027639361001FDE21 /* GridLine+victoriousLineMultipliers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03734B1F27639361001FDE21 /* GridLine+victoriousLineMultipliers.swift */; };
 		03734B25276393A0001FDE21 /* Player+displayedProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03734B24276393A0001FDE21 /* Player+displayedProperties.swift */; };
+		03DAC855276892320092534C /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DAC854276892320092534C /* TitleView.swift */; };
+		03DAC85A276892480092534C /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DAC859276892480092534C /* MessageView.swift */; };
+		03DAC85F2768925C0092534C /* ResetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DAC85E2768925C0092534C /* ResetView.swift */; };
 		03E46CB0275F4B4E008C00FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E46CAF275F4B4E008C00FF /* AppDelegate.swift */; };
 		03E46CB2275F4B4E008C00FF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E46CB1275F4B4E008C00FF /* SceneDelegate.swift */; };
 		03E46CB4275F4B4E008C00FF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E46CB3275F4B4E008C00FF /* ContentView.swift */; };
@@ -38,7 +41,6 @@
 		03E46D32275F93E0008C00FF /* Color+appColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E46D31275F93E0008C00FF /* Color+appColor.swift */; };
 		03E46D37275F9CB7008C00FF /* SymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E46D36275F9CB7008C00FF /* SymbolView.swift */; };
 		03E46D3C275F9F9C008C00FF /* AIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E46D3B275F9F9C008C00FF /* AIViewModel.swift */; };
-		03E46D41275FB973008C00FF /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E46D40275FB973008C00FF /* MessageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +71,9 @@
 		0345CB1C2760FD010045944F /* Float+cgFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+cgFloat.swift"; sourceTree = "<group>"; };
 		03734B1F27639361001FDE21 /* GridLine+victoriousLineMultipliers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GridLine+victoriousLineMultipliers.swift"; sourceTree = "<group>"; };
 		03734B24276393A0001FDE21 /* Player+displayedProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Player+displayedProperties.swift"; sourceTree = "<group>"; };
+		03DAC854276892320092534C /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
+		03DAC859276892480092534C /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
+		03DAC85E2768925C0092534C /* ResetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetView.swift; sourceTree = "<group>"; };
 		03E46CAC275F4B4E008C00FF /* Tic Tac Toe vs Ben.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tic Tac Toe vs Ben.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		03E46CAF275F4B4E008C00FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		03E46CB1275F4B4E008C00FF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -96,7 +101,6 @@
 		03E46D31275F93E0008C00FF /* Color+appColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+appColor.swift"; sourceTree = "<group>"; };
 		03E46D36275F9CB7008C00FF /* SymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolView.swift; sourceTree = "<group>"; };
 		03E46D3B275F9F9C008C00FF /* AIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIViewModel.swift; sourceTree = "<group>"; };
-		03E46D40275FB973008C00FF /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,13 +153,8 @@
 		0345CB082760B8A50045944F /* Interface */ = {
 			isa = PBXGroup;
 			children = (
-				03E46CB3275F4B4E008C00FF /* ContentView.swift */,
-				0345CAF42760B5F90045944F /* GridView.swift */,
-				0345CB172760FCDE0045944F /* VictoriousLineView.swift */,
-				03E46D19275F618D008C00FF /* RowView.swift */,
-				03E46D14275F617D008C00FF /* BoxView.swift */,
-				03E46D36275F9CB7008C00FF /* SymbolView.swift */,
-				03E46D40275FB973008C00FF /* MessageView.swift */,
+				03DAC863276892B60092534C /* Home */,
+				03DAC871276893930092534C /* Grid */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -169,6 +168,29 @@
 				0345CAF92760B84A0045944F /* InRoundedRectangle.swift */,
 			);
 			path = "Supporting files";
+			sourceTree = "<group>";
+		};
+		03DAC863276892B60092534C /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				03E46CB3275F4B4E008C00FF /* ContentView.swift */,
+				03DAC854276892320092534C /* TitleView.swift */,
+				03DAC859276892480092534C /* MessageView.swift */,
+				03DAC85E2768925C0092534C /* ResetView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		03DAC871276893930092534C /* Grid */ = {
+			isa = PBXGroup;
+			children = (
+				0345CAF42760B5F90045944F /* GridView.swift */,
+				0345CB172760FCDE0045944F /* VictoriousLineView.swift */,
+				03E46D19275F618D008C00FF /* RowView.swift */,
+				03E46D14275F617D008C00FF /* BoxView.swift */,
+				03E46D36275F9CB7008C00FF /* SymbolView.swift */,
+			);
+			path = Grid;
 			sourceTree = "<group>";
 		};
 		03E46CA3275F4B4D008C00FF = {
@@ -415,13 +437,15 @@
 				03E46D3C275F9F9C008C00FF /* AIViewModel.swift in Sources */,
 				0345CB132760CB090045944F /* GridLine.swift in Sources */,
 				03E46D15275F617E008C00FF /* BoxView.swift in Sources */,
+				03DAC855276892320092534C /* TitleView.swift in Sources */,
 				03E46D32275F93E0008C00FF /* Color+appColor.swift in Sources */,
 				0345CB182760FCDF0045944F /* VictoriousLineView.swift in Sources */,
-				03E46D41275FB973008C00FF /* MessageView.swift in Sources */,
 				03E46CF7275F4BCD008C00FF /* GridModel.swift in Sources */,
 				03E46D1F275F61C9008C00FF /* Player.swift in Sources */,
+				03DAC85F2768925C0092534C /* ResetView.swift in Sources */,
 				03E46D37275F9CB7008C00FF /* SymbolView.swift in Sources */,
 				03E46D24275F61E4008C00FF /* AI.swift in Sources */,
+				03DAC85A276892480092534C /* MessageView.swift in Sources */,
 				03E46D10275F6169008C00FF /* InButton.swift in Sources */,
 				03E46D06275F6143008C00FF /* CommonProperties.swift in Sources */,
 				03734B25276393A0001FDE21 /* Player+displayedProperties.swift in Sources */,

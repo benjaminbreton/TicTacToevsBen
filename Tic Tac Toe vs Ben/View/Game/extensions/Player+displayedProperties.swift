@@ -32,14 +32,7 @@ extension Player {
     }
     /// The symbol to display in a box.
     var symbol: SymbolView {
-        switch self {
-        case .ai:
-            return SymbolView("x")
-        case .player:
-            return SymbolView("o")
-        case .none:
-            return SymbolView("")
-        }
+        SymbolView(self)
     }
     /// The player's color's name.
     var color: Color {

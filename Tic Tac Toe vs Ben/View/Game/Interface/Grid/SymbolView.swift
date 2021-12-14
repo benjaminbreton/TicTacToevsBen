@@ -9,14 +9,25 @@ import SwiftUI
 
 struct SymbolView: View {
     
-    private let symbol: String
+    // MARK: - Computed property
+    
     private var size: CGFloat { CommonProperties.size.getMin(of: 2) }
-    init(_ symbol: String) {
-        self.symbol = symbol
+    
+    // MARK: - Init property
+    
+    private let player: Player
+    
+    // MARK: - Init
+    
+    init(_ player: Player) {
+        self.player = player
     }
+    
+    // MARK: - Body
+    
     var body: some View {
         Group {
-            if symbol == "x" {
+            if player == .ai {
                 ZStack {
                     RoundedRectangle()
                         .frame(height: size)
@@ -25,14 +36,12 @@ struct SymbolView: View {
                         .frame(height: size)
                         .rotationEffect(.degrees(-45))
                 }
-                .foregroundColor(.appRed)
-            } else if symbol == "o" {
+            } else if player == .player {
                 Circle()
                     .stroke(lineWidth: size)
-                    .foregroundColor(.appGreen)
             }
         }
         .padding()
-        
+        .foregroundColor(player.color)
     }
 }
