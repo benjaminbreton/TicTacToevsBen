@@ -88,11 +88,11 @@ struct GridModel {
      */
     mutating func reset() {
         resetButtonHasBeenHitten = true
-        boxHasBeenChoosen = false
-        waitForNextPlayer = false
         for box in GridBox.allCases {
             resetBoxUserDefaults(box)
         }
+        boxHasBeenChoosen = false
+        waitForNextPlayer = false
         beginner = Player.getFromInt(beginner).switchPlayer.int
         currentPlayerInt = beginner
         currentPlayer = Player.getFromInt(currentPlayerInt)

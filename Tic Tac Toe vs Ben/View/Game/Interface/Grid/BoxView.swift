@@ -45,7 +45,7 @@ struct BoxView: View {
             .onReceive(timer, perform: { _ in
                 if gridViewModel.currentPlayer == .ai, let decision = aiViewModel.decision, decision == box, !gridViewModel.boxHasBeenChoosen {
                     aiViewModel.reset()
-                    hit()
+                    waitForAction(.hit)
                 }
             })
     }
@@ -63,7 +63,7 @@ struct BoxView: View {
         }
     }
     /// Enum used for the method whaitForAction.
-    enum BoxAction { case sendChoice, endRound }
+    enum BoxAction { case hit, sendChoice, endRound }
     /**
      Method used to wait for an animation to end before performing the next action.
      - parameter action: The action to perform after the deadline.
@@ -79,6 +79,10 @@ struct BoxView: View {
             case .endRound:
                 if !gridViewModel.resetButtonHasBeenHitten {
                     gridViewModel.nextPlayer()
+                }
+            case .hit:
+                if gridViewModel.currentPlayer == .ai {
+                    hit()
                 }
             }
         }
