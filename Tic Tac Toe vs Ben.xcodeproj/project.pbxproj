@@ -141,6 +141,7 @@
 		0345CB042760B8910045944F /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				03E46D0A275F6159008C00FF /* RoundedRectangle+defaultCornerRadius.swift */,
 				0345CB1C2760FD010045944F /* Float+cgFloat.swift */,
 				03E46D31275F93E0008C00FF /* Color+appColor.swift */,
 				0345CAFE2760B8710045944F /* Font+appFont.swift */,
@@ -163,7 +164,6 @@
 			isa = PBXGroup;
 			children = (
 				03E46D05275F6143008C00FF /* CommonProperties.swift */,
-				03E46D0A275F6159008C00FF /* RoundedRectangle+defaultCornerRadius.swift */,
 				03E46D0F275F6169008C00FF /* InButton.swift */,
 				0345CAF92760B84A0045944F /* InRoundedRectangle.swift */,
 			);
