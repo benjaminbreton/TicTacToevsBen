@@ -27,7 +27,7 @@ struct MessageView: View {
         } else if gridViewModel.canContinue {
             return gridViewModel.currentPlayer.text
         }
-        return "match nul"
+        return "draw".localized
     }
     
     // MARK: - Body

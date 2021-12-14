@@ -32,7 +32,7 @@ struct ResetView: View {
     // MARK: - Body
     
     var body: some View {
-        Text(isGridDisabled ? "Continuer" : "Reset")
+        Text(isGridDisabled ? "continue".localized : "reset".localized)
             .inRoundedRectangle()
             .frame(height: CommonProperties.size.getMin(of: 10))
             .padding()

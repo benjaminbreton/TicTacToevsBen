@@ -14,9 +14,9 @@ extension Player {
     var text: String {
         switch self {
         case .ai:
-            return "à moi"
+            return "ai_turn".localized
         case .player:
-            return "à toi"
+            return "player_turn".localized
         case .none:
             return ""
         }
@@ -25,9 +25,9 @@ extension Player {
     var winMessage: String {
         switch self {
         case .ai:
-            return "j'ai gagné, désolé..."
+            return "ai_victory".localized
         default:
-            return "vous avez gagné ! Bravo !"
+            return "player_victory".localized
         }
     }
     /// The symbol to display in a box.

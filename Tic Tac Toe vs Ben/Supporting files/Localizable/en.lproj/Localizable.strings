@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  Tic Tac Toe vs Ben
+
+  Created by Benjamin Breton on 14/12/2021.
+  
+*/
+"draw" = "draw! 🙅" ;
+"continue" = "continue" ;
+"reset" = "reset" ;
+"ai_turn" = "my turn..." ;
+"player_turn" = "your turn..." ;
+"ai_victory" = "I won, sorry... 🤷" ;
+"player_victory" = "You won! Congrats! 🍾" ;
