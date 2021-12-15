@@ -11,12 +11,16 @@ To read the english version 🇬🇧 of the README file, please click [here](#en
 
 Les règles sont celles du jeu basic. Une grille comportant 9 cases s'affiche à l'écran. Chaque joueur à son tour doit choisir une case de la grille. Le premier qui forme une ligne a gagné. Si toutes les cases ont été choisies et qu'aucune ligne n'a été formée il y a match nul.
 
-# 2 Spécificités
+# 2 Pour la petite histoire...
 
-Ce jeu se joue contre l'IA et donc ne peut pas se jouer à deux joueurs humains.
+Cette application résulte de mes premiers pas dans le développement. Au lycée j'avais développé ce jeu de morpion sur ma calculatrice espérant créer un IA imbattable. Mes amis essayaient de le battre et j'améliorais ainsi la stratégie de mon IA.
+
+# 3 Spécificités
+
+Comme vous l'aurez compris, ce jeu se joue contre l'IA et donc ne peut pas se jouer à deux joueurs humains.
 L'IA est sensé être invincible, donc le but est de résister et de ne pas perdre.
 
-# 3 Côté technique
+# 4 Côté technique
 
 SwiftUI a été utilisé pour créer l'interface.
 MVVM en design pattern.
@@ -31,12 +35,16 @@ Le projet a été testé à 100 % : UITests et tests unitaires.
 
 The rules are those of the basic game. A grid with 9 boxes is displayed on the screen. Each player, when his turn begins, must choose a box. The first to draw a line wins. If all the boxes have been chosen and no line has been formed, there is a draw.
 
-# 2 Specifics
+# 2 For the record ...
 
-This game is played against AI and therefore cannot be played with two human players.
+This application is the result of my first steps in development. In high school I developed this game on my calculator hoping to create an unbeatable AI. My friends were trying to beat it and so I was improving my AI strategy.
+
+# 3 Specifics
+
+As you understood, this game is played against AI and therefore cannot be played with two human players.
 AI is supposed to be invincible, so the point is to resist and not lose.
 
-# 3 Technical side
+# 4 Technical side
 
 SwiftUI was used to create the interface.
 MVVM as design pattern.
