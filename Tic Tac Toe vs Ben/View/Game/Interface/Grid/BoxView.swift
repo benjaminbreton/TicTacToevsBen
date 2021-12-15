@@ -37,7 +37,7 @@ struct BoxView: View {
     var body: some View {
         box.owner.symbol
             .inRoundedRectangle(color: box.owner.color, padding: false)
-            .inButton(isDisabled: box.owner != .none || isDisabled || gridViewModel.hasToWait || gridViewModel.currentPlayer != .player, action: hit)
+            .inButton(box.id, isDisabled: box.owner != .none || isDisabled || gridViewModel.hasToWait || gridViewModel.currentPlayer != .player, action: hit)
             .rotation3DEffect(
                 .degrees(box.currentRotation),
                 axis: (x: 0.0, y: 1.0, z: 0.0))

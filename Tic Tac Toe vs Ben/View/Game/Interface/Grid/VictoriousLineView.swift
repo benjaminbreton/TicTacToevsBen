@@ -18,13 +18,7 @@ struct VictoriousLineView: View {
     // MARK: - The line
     
     /// The line to display in the grid.
-    private var line: GridLine? {
-        if let line = gridViewModel.victoriousLine {
-            return line
-        } else {
-            return nil
-        }
-    }
+    private var line: GridLine? { gridViewModel.victoriousLine }
     
     // MARK: - Body
     
@@ -38,7 +32,7 @@ struct VictoriousLineView: View {
                         .stroke(lineWidth: CommonProperties.size.getMin(of: 1))
                 }
                 .foregroundColor(player.color)
-                
+                .accessibility(identifier: "victoryLine")
             }
         }
     }

@@ -13,12 +13,10 @@ extension Player {
     /// Text to display when the player has top play.
     var text: String {
         switch self {
-        case .ai:
-            return "ai_turn".localized
         case .player:
             return "player_turn".localized
-        case .none:
-            return ""
+        default:
+            return "ai_turn".localized
         }
     }
     /// Text to display when the player is victorious.

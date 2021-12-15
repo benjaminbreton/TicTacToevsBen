@@ -6,10 +6,14 @@
 //
 
 import Foundation
-class GridViewModel: ObservableObject {
-    @Published private var model: GridModel
+final class GridViewModel: ObservableObject {
     
+    // MARK: - Published properties
+    
+    @Published private var model: GridModel
     @Published private(set) var aiHasToPlay: Bool
+    
+    // MARK: - Computed properties
     
     var grid: [[GridBox]] { model.grid }
     var canContinue: Bool { model.canContinue }
@@ -19,32 +23,57 @@ class GridViewModel: ObservableObject {
     var hasToWait: Bool { model.hasToWait }
     var resetButtonHasBeenHitten: Bool { model.resetButtonHasBeenHitten }
     var boxHasBeenChoosen: Bool { model.boxHasBeenChoosen }
+    
+    // MARK: - Init
+    
     init(beginner: Player? = nil) {
         self.model = GridModel(beginner: beginner)
         aiHasToPlay = false
         if model.currentPlayer == .ai {
             aiHasToPlay = true
         }
-        
     }
     
-    func playerDidChoose(_ gridBox: GridBox) {
-        model.playerDidChoose(gridBox)
-    }
+    // MARK: - Choosen box
     
-    func reset() {
-        model.reset()
-    }
+    /**
+     Notify the fact that a box has been choosed to impeach another box to be choosen.
+     - parameter box: The hitten box.
+     */
     func boxButtonHasBeenHitten(_ box: GridBox) {
         model.boxButtonHasBeenHitten(box)
     }
+    /**
+     Ask model to change the value of a box that has been hitten.
+     - parameter box: The hitten box.
+     */
+    func playerDidChoose(_ box: GridBox) {
+        model.playerDidChoose(box)
+    }
+    /**
+     After a box has been choosen, ask model to change the current player's value.
+     */
     func nextPlayer() {
-        print("call")
         model.nextPlayer()
         if currentPlayer == .ai {
             aiHasToPlay = true
         }
     }
+    
+    // MARK: - Reset
+    
+    /**
+     Ask model to reset the grid values.
+     */
+    func reset() {
+        model.reset()
+    }
+    
+    // MARK: - AI is playing
+    
+    /**
+     AI is playing, so turn off the property used to notify it has to play.
+     */
     func aiIsPlaying() {
         aiHasToPlay = false
     }

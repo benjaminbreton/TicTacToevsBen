@@ -15,12 +15,14 @@ fileprivate struct InButton: ViewModifier {
     
     private let action: () -> Void
     private let isDisabled: Bool
+    private let id: String
     
     // MARK: - Init
     
-    init(isDisabled: Bool, action: @escaping () -> Void) {
+    init(isDisabled: Bool, id: String, action: @escaping () -> Void) {
         self.isDisabled = isDisabled
         self.action = action
+        self.id = id
     }
     
     // MARK: - Body
@@ -30,6 +32,7 @@ fileprivate struct InButton: ViewModifier {
             content
         })
         .disabled(isDisabled)
+        .accessibility(identifier: id)
     }
 }
 
@@ -38,10 +41,11 @@ fileprivate struct InButton: ViewModifier {
 extension View {
     /**
      Place the view in a button.
+     - parameter id: The button's id.
      - parameter isDisabled: A boolean indicating whether the button has to be disabled or not, default: false.
      - parameter action: The action to perform when the button is hitten.
      */
-    func inButton(isDisabled: Bool = false, action: @escaping () -> Void) -> some View {
-        modifier(InButton(isDisabled: isDisabled, action: action))
+    func inButton(_ id: String, isDisabled: Bool = false, action: @escaping () -> Void) -> some View {
+        modifier(InButton(isDisabled: isDisabled, id: id, action: action))
     }
 }

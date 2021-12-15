@@ -7,16 +7,15 @@
 
 import SwiftUI
 
-class CommonProperties {
+final class CommonProperties {
     
     // MARK: - Properties
     
     static let size = Size()
-    private init() { }
     
     // MARK: - Size
     
-    class Size {
+    final class Size {
         fileprivate init() { }
         private func getHeight(of percent: CGFloat) -> CGFloat {
             UIScreen.main.bounds.height / 100 * percent

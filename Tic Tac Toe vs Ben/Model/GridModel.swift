@@ -63,9 +63,6 @@ struct GridModel {
             self.beginner = beginner.switchPlayer.int
             reset()
         }
-        for box in GridBox.allCases {
-            print(box.currentRotation)
-        }
         waitForNextPlayer = false
         if boxHasBeenChoosen {
             for index in 0..<GridBox.allCases.count {

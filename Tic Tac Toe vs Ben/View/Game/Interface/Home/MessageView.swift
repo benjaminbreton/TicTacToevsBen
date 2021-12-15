@@ -39,5 +39,6 @@ struct MessageView: View {
             .inRoundedRectangle(color: color)
             .frame(height: CommonProperties.size.getMin(of: 5))
             .padding()
+            .accessibility(identifier: "message")
     }
 }

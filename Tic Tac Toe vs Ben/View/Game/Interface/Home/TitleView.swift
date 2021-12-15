@@ -17,5 +17,6 @@ struct TitleView: View {
             .inRoundedRectangle()
             .frame(height: CommonProperties.size.getMin(of: 10))
             .padding()
+            .accessibility(identifier: "title")
     }
 }

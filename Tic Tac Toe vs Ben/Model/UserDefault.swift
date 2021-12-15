@@ -19,7 +19,8 @@ struct UserDefault<Value> {
             UserDefaults.standard.setValue(newValue, forKey: name)
         }
         get {
-            UserDefaults.standard.object(forKey: name) as? Value ?? defaultValue
+            guard let result = UserDefaults.standard.object(forKey: name) as? Value else { return defaultValue }
+            return result
         }
     }
 }

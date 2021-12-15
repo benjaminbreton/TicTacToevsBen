@@ -36,7 +36,8 @@ enum GridBox: CaseIterable {
      - returns: The UserDefaults data.
      */
     private func getUserDefault<Value>(_ name: String, defaultValue: Value) -> Value {
-        UserDefaults.standard.object(forKey: name) as? Value ?? defaultValue
+        guard let result = UserDefaults.standard.object(forKey: name) as? Value else { return defaultValue }
+        return result
     }
     
     // MARK: - Rows
@@ -92,6 +93,11 @@ enum GridBox: CaseIterable {
         GridLine.allCases.compactMap({ $0.gridBoxes.contains(self) ? $0 : nil })
     }
     
+    // MARK: - Id
+    
+    /// The id of the box.
+    var id: String { "box\(row)\(col)" }
+    
     // MARK: - Get box
     
     /**
@@ -102,9 +108,7 @@ enum GridBox: CaseIterable {
      */
     static func getBox(row: Int, col: Int) -> GridBox {
         let result = allCases.compactMap({ $0.row == row && $0.col == col ? $0 : nil})
-        if result.count == 1 {
-            return result[0]
-        }
-        return .box00
+        guard result.count == 1 else { return .box00 }
+        return result[0]
     }
 }

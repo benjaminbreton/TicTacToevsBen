@@ -33,10 +33,8 @@ enum Player: CaseIterable {
         switch self {
         case .ai:
             return -90
-        case .player:
+        default:
             return 90
-        case .none:
-            return 0
         }
     }
     /// Box second rotation when it has been hitten.
@@ -44,10 +42,8 @@ enum Player: CaseIterable {
         switch self {
         case .ai:
             return -180
-        case .player:
+        default:
             return 180
-        case .none:
-            return 0
         }
     }
     
@@ -80,9 +76,7 @@ enum Player: CaseIterable {
      */
     static func getFromInt(_ int: Int) -> Player {
         let result = allCases.compactMap({ $0.int == int ? $0 : nil })
-        if result.count == 1 {
-            return result[0]
-        }
-        return .none
+        guard result.count == 1 else { return .none }
+        return result[0]
     }
 }

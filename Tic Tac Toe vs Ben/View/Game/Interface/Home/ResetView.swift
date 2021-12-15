@@ -36,6 +36,6 @@ struct ResetView: View {
             .inRoundedRectangle()
             .frame(height: CommonProperties.size.getMin(of: 10))
             .padding()
-            .inButton(action: reset)
+            .inButton("reset", action: reset)
     }
 }

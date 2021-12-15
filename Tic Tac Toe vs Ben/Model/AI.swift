@@ -179,15 +179,12 @@ struct AI {
             }
         } else if occupiedBoxesCount == 3 {
             // the player has made two moves
-            if playerDecisions[0].isCorner {
-                if playerDecisions[1].isCorner {
-                    // if two corners have been chosen, choose a box situated between two corners
-                    choices = freeMiddleCorners
-                } else {
-                    choices = [playerDecisions[0].oppositeBox]
-                }
+            guard playerDecisions[0].isCorner else { return freeCorners[Int.random(in: 0..<freeCorners.count)] }
+            if playerDecisions[1].isCorner {
+                // if two corners have been chosen, choose a box situated between two corners
+                choices = freeMiddleCorners
             } else {
-                choices = freeCorners
+                choices = [playerDecisions[0].oppositeBox]
             }
         }
         // if no choice has been made, pick a free box
