@@ -21,12 +21,8 @@ extension Player {
     }
     /// Text to display when the player is victorious.
     var winMessage: String {
-        switch self {
-        case .ai:
-            return "ai_victory".localized
-        default:
-            return "player_victory".localized
-        }
+        guard self == .ai else { return "player_victory".localized }
+        return "ai_victory".localized
     }
     /// The symbol to display in a box.
     var symbol: SymbolView {

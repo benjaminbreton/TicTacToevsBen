@@ -40,5 +40,6 @@ struct MessageView: View {
             .frame(height: CommonProperties.size.getMin(of: 5))
             .padding()
             .accessibility(identifier: "message")
+            .accessibility(label: Text("draw"))
     }
 }
