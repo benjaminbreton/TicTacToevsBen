@@ -147,7 +147,7 @@ class Tic_Tac_Toe_vs_BenUITests: XCTestCase {
         app.buttons[choice4].tap()
         let expectationDraw = try getDrawExpectation(expectationName: "draw")
         wait(for: [expectationDraw.expectation], timeout: expectationDraw.timeout)
-        XCTAssert(app.staticTexts["message"].label == "match nul ! 🙅")
+        XCTAssert(app.staticTexts["message"].label == "draw")
     }
     
     private func isFreeBox(_ name: String) throws -> Bool {
@@ -209,13 +209,14 @@ class Tic_Tac_Toe_vs_BenUITests: XCTestCase {
     
     private func getPlayerTurnExpectation(expectationName: String) throws -> ExpectationSettings {
         let expectationToFulfill = expectation(description: expectationName)
-        try performMessageWaiting(expectationToFulfill: expectationToFulfill, timeout: 10, message: "à toi ...")
+        try performMessageWaiting(expectationToFulfill: expectationToFulfill, timeout: 10, code: "player_turn")
         return (expectation: expectationToFulfill, timeout: 10)
     }
-    private func performMessageWaiting(expectationToFulfill: XCTestExpectation, timeout: TimeInterval, message: String) throws {
+    private func performMessageWaiting(expectationToFulfill: XCTestExpectation, timeout: TimeInterval, code: String) throws {
         let app = try unwrapApp()
         let label = app.staticTexts["message"]
-        let predicate = NSPredicate(format: "label == %@", message)
+        print(app.staticTexts["message"].label)
+        let predicate = NSPredicate(format: "label == %@", code)
         let expectation0 = expectation(for: predicate, evaluatedWith: label, handler: nil)
         wait(for: [expectation0], timeout: timeout)
         expectationToFulfill.fulfill()
@@ -225,7 +226,7 @@ class Tic_Tac_Toe_vs_BenUITests: XCTestCase {
     
     private func getAIVictoryExpectation(expectationName: String) throws -> ExpectationSettings {
         let expectationToFulfill = expectation(description: expectationName)
-        try performMessageWaiting(expectationToFulfill: expectationToFulfill, timeout: 10, message: "J'ai gagné, désolé ... 🤷")
+        try performMessageWaiting(expectationToFulfill: expectationToFulfill, timeout: 10, code: "ai_victory")
         return (expectation: expectationToFulfill, timeout: 10)
     }
     
@@ -233,7 +234,7 @@ class Tic_Tac_Toe_vs_BenUITests: XCTestCase {
     
     private func getDrawExpectation(expectationName: String) throws -> ExpectationSettings {
         let expectationToFulfill = expectation(description: expectationName)
-        try performMessageWaiting(expectationToFulfill: expectationToFulfill, timeout: 10, message: "match nul ! 🙅")
+        try performMessageWaiting(expectationToFulfill: expectationToFulfill, timeout: 10, code: "draw")
         return (expectation: expectationToFulfill, timeout: 10)
     }
     

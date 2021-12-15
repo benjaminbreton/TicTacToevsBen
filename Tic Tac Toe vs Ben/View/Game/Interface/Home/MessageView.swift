@@ -21,15 +21,18 @@ struct MessageView: View {
         }
         return gridViewModel.currentPlayer.color
     }
-    private var message: String {
+    private var messageCode: String? {
         if gridViewModel.hasToWait {
-            return ""
+            return nil
         } else if let player = gridViewModel.victoriousPlayer {
-            return player.winMessage
+            return player.winMessageCode
         } else if gridViewModel.canContinue {
-            return gridViewModel.currentPlayer.text
+            return gridViewModel.currentPlayer.turnCode
         }
-        return "draw".localized
+        return "draw"
+    }
+    private var message: String {
+        messageCode?.localized ?? ""
     }
     
     // MARK: - Body
@@ -40,5 +43,6 @@ struct MessageView: View {
             .frame(height: CommonProperties.size.getMin(of: 5))
             .padding()
             .accessibility(identifier: "message")
+            .accessibility(label: Text(messageCode ?? ""))
     }
 }
