@@ -14,13 +14,13 @@ fileprivate struct InRoundedRectangle: ViewModifier {
     // MARK: - Init properties
     
     private let color: Color
-    private let paddingValue: CGFloat
+    private let padding: Bool
     
     // MARK: - Init
     
     init(color: Color, padding: Bool) {
         self.color = color
-        paddingValue = padding ? CommonProperties.size.getMin(of: 3) : 0
+        self.padding = padding
     }
     
     // MARK: - Body
@@ -29,8 +29,12 @@ fileprivate struct InRoundedRectangle: ViewModifier {
         ZStack {
             RoundedRectangle()
                 .opacity(0.3)
-            content
-                .padding(paddingValue)
+            if padding {
+                content
+                    .padding()
+            } else {
+                content
+            }
             RoundedRectangle()
                 .stroke()
         }

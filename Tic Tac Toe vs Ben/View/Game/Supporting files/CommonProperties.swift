@@ -26,5 +26,8 @@ final class CommonProperties {
         func getMin(of percent: CGFloat) -> CGFloat {
             min(getHeight(of: percent), getWidth(of: percent))
         }
+        func getMax(of percent: CGFloat) -> CGFloat {
+            max(getHeight(of: percent), getWidth(of: percent))
+        }
     }
 }

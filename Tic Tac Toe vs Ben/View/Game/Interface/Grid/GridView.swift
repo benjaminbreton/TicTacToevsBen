@@ -17,16 +17,21 @@ struct GridView: View {
     
     // MARK: - Computed properties
     
-    private var gridSize: CGFloat { CommonProperties.size.getMin(of: 82) }
+    private var gridSize: CGFloat {
+        guard orientationIsPortrait || CommonProperties.size.getMax(of: 45) > CommonProperties.size.getMin(of: 82) else { return CommonProperties.size.getMax(of: 45) }
+        return CommonProperties.size.getMin(of: 82)
+    }
     
     // MARK: - Init property
     
     private var isDisabled: Bool
+    private let orientationIsPortrait: Bool
     
     // MARK: - Init
     
-    init(isDisabled: Bool) {
+    init(isDisabled: Bool, orientationIsPortrait: Bool) {
         self.isDisabled = isDisabled
+        self.orientationIsPortrait = orientationIsPortrait
     }
     
     // MARK: - Body

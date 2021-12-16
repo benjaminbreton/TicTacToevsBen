@@ -41,6 +41,7 @@ struct MessageView: View {
         Text(message)
             .inRoundedRectangle(color: color)
             .frame(height: CommonProperties.size.getMin(of: 5))
+            .fixedSize(horizontal: false, vertical: true)
             .padding()
             .accessibility(identifier: "message")
             .accessibility(label: Text(messageCode ?? ""))

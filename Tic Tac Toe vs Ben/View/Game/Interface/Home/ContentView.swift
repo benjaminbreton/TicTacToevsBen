@@ -31,6 +31,10 @@ struct ContentView: View {
     var isGridDisabled: Bool {
         !gridViewModel.canContinue || gridViewModel.victoriousPlayer != nil
     }
+    /// A boolean indicating whether the title has to be placed above the grid or not.
+    private var placeTitleAbove: Bool {
+        orientationIsPortrait || CommonProperties.size.getMax(of: 45) <= CommonProperties.size.getMin(of: 82)
+    }
     
     // MARK: - Init
     
@@ -47,18 +51,27 @@ struct ContentView: View {
             if orientationIsPortrait {
                 VStack {
                     TitleView()
-                    GridView(isDisabled: isGridDisabled)
+                    GridView(isDisabled: isGridDisabled, orientationIsPortrait: orientationIsPortrait)
+                        .padding()
                     MessageView()
                     ResetView(reset: reset)
                 }
             } else {
-                HStack {
-                    VStack {
+                VStack {
+                    if placeTitleAbove {
                         TitleView()
-                        MessageView()
-                        ResetView(reset: reset)
                     }
-                    GridView(isDisabled: isGridDisabled)
+                    HStack {
+                        VStack {
+                            if !placeTitleAbove {
+                                TitleView()
+                            }
+                            MessageView()
+                            ResetView(reset: reset)
+                        }
+                        GridView(isDisabled: isGridDisabled, orientationIsPortrait: orientationIsPortrait)
+                    }
+                    .padding()
                 }
             }
         }
