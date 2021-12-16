@@ -58,14 +58,10 @@ struct ContentView: View {
                 }
             } else {
                 VStack {
-                    if placeTitleAbove {
-                        TitleView()
-                    }
+                    TitleView(isHidden: !placeTitleAbove)
                     HStack {
                         VStack {
-                            if !placeTitleAbove {
-                                TitleView()
-                            }
+                            TitleView(isHidden: placeTitleAbove)
                             MessageView()
                             ResetView(reset: reset)
                         }
